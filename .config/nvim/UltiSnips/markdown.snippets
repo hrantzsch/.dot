@@ -1,0 +1,53 @@
+snippet term "Reference a term from the glossary"
+{term}\`$1\`$2
+endsnippet
+
+snippet ref "Reference a target header"
+{ref}\`$1\`$2
+endsnippet
+
+snippet lt "list-table"
+\`\`\`{list-table}
+:header-rows: 1
+:name: $1
+
+* - $2
+\`\`\`
+endsnippet
+
+snippet ( "Target header"
+($1:$2)=
+$3
+endsnippet
+
+snippet note "Make a note"
+\`\`\`{note}
+$1
+\`\`\`
+endsnippet
+
+snippet todo "Make a TODO"
+\`\`\`{admonition} TODO
+$1
+\`\`\`
+endsnippet
+
+snippet margin "Make a margin comment"
+\`\`\`{margin} $1
+$2
+\`\`\`
+endsnippet
+
+snippet caution "Caution!"
+\`\`\`{caution}
+$1
+\`\`\`
+endsnippet
+
+snippet ls "term Luca Server"
+{term}\`Luca Server\`
+endsnippet
+
+snippet hd "term Health Department"
+{term}\`Health Department\`
+endsnippet
