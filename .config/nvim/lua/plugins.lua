@@ -1,37 +1,20 @@
---[[
-auto install packer
-from ChristianChiarulli/LunarVim
-]]
-
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-  vim.api.nvim_command "packadd packer.nvim"
+-- auto install packer
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  PackerBootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-local packer_ok, packer = pcall(require, "packer")
-if not packer_ok then
-  return
-end
+-- Run PackerCompile when there are changes in plugins.lua
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
-packer.init {
-  compile_path = vim.fn.stdpath('data')..'/site/pack/loader/start/packer.nvim/plugin/packer_compiled.vim',
-  git = {
-    clone_timeout = 300
-  },
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "single" }
-    end,
-  },
-}
-
-vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
-
+-- Config
 require("packer").startup(function()
-  -- packer can manage itself after that
+  -- packer can manage itself
   use "wbthomason/packer.nvim"
 
   use {
@@ -40,11 +23,10 @@ require("packer").startup(function()
       require("lsp-config").config()
     end
   }
-  use "glepnir/lspsaga.nvim"
 
   use {
     "nvim-telescope/telescope.nvim",
-    requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim"},
+    requires = {"nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim"},
     config = function()
       local t = require'telescope'
       t.setup{
@@ -53,6 +35,12 @@ require("packer").startup(function()
           layout_strategy = "flex",
           sorting_strategy = "ascending",
           set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+          preview = {
+            filesize_limit = 2, -- MB
+            timeout = 100, -- ms
+            msg_bg_fillchar = " ",
+          },
+          initial_mode = "normal",
         }
       }
       t.load_extension('fzy_native')
@@ -60,10 +48,7 @@ require("packer").startup(function()
   }
 
   use {
-    "hrsh7th/nvim-compe",
-    config = function()
-      require("compe-config").config()
-    end
+    "ray-x/lsp_signature.nvim"
   }
 
   use {
@@ -95,8 +80,6 @@ require("packer").startup(function()
     end
   }
 
-  use "romgrk/nvim-treesitter-context"
-
   use "folke/which-key.nvim"
 
   use "RRethy/vim-illuminate"  -- highlight word under cursor
@@ -105,67 +88,63 @@ require("packer").startup(function()
   use "tpope/vim-repeat"
   use "tpope/vim-surround"
 
-  use "xolox/vim-misc"
-  use "xolox/vim-notes"
+  use {
+    "xolox/vim-notes",
+    requires = "xolox/vim-misc",
+    config = function()
+      vim.g.notes_directories = {'~/Nextcloud/Notes'}
+      vim.g.notes_suffix = '.md'
+      vim.g.notes_unicode_enabled = 0
+      -- " make the C-] combination search for @tags:
+      -- autocmd FileType markdown inoremap <C-]> <C-o>:SearchNotes<CR>
+      -- autocmd FileType markdown nnoremap <C-]> :SearchNotes<CR>
+    end
+  }
 
   use {
     "mg979/vim-visual-multi",
     branch = "master"
   }
 
-  use "itchyny/lightline.vim"
+  use {
+    "itchyny/lightline.vim",
+    config = function()
+      vim.g.lightline = {
+        -- colorscheme is configured in settings.lua
+        colorscheme = 'everforest',
+        enable = { statusline = true, tabline = false },
+        active = {
+          left = {
+            { 'mode', 'spell', 'paste' },
+            { 'readonly', 'absolutepath', 'modified', }
+          },
+          right = {
+            { 'percent', 'lineinfo', },
+            { 'fileencoding', 'filetype', }
+          }
+        }
+      }
+    end
+  }
+
   use "sainnhe/sonokai"
   use "sainnhe/everforest"
 
   use {
     "SirVer/ultisnips",
-    requires = "honza/vim-snippets"
+    requires = "honza/vim-snippets",
+    config = function()
+      vim.g.UltiSnipsExpandTrigger='<c-u>'
+      vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
+      vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
+      vim.g.UltiSnipsRemoveSelectModeMappings = 0
+    end
   }
-
-  use "stevearc/aerial.nvim"
 
   use "purescript-contrib/purescript-vim"
 
-  --[[
-  use { "camspiers/snap", rocks = {"fzy"}}
-  ]]
-
+  -- Automatically set up configuration after cloning packer.nvim
+  if PackerBootstrap then
+    require('packer').sync()
+  end
 end)
-
---[[
-configuration for non-lua plugins
-]]
-
--- itchyny/lightline
-vim.g.lightline = {
-  -- colorscheme is configured in settings.lua
-  colorscheme = 'everforest',
-  enable = { statusline = true, tabline = false },
-  active = {
-    left = {
-      { 'mode', 'spell', 'paste' },
-      { 'readonly', 'absolutepath', 'modified', }
-    },
-    right = {
-      { 'percent', 'lineinfo', },
-      { 'fileencoding', 'filetype', }
-    }
-  }
-}
-
--- xolox/vim-notes
-vim.g.notes_directories = {'~/Nextcloud/Notes'}
-vim.g.notes_suffix = '.md'
-vim.g.notes_unicode_enabled = 0
--- " make the C-] combination search for @tags:
--- autocmd FileType markdown inoremap <C-]> <C-o>:SearchNotes<CR>
--- autocmd FileType markdown nnoremap <C-]> :SearchNotes<CR>
-
--- stevearc/aerial
-vim.g.aerial_min_width = 20
-
--- SirVer/ultisnips
-vim.g.UltiSnipsExpandTrigger='<c-u>'
-vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
-vim.g.UltiSnipsRemoveSelectModeMappings = 0

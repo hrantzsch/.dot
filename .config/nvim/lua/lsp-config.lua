@@ -1,6 +1,10 @@
 local M = {}
 
-local function common_on_attach(client)
+local function common_on_attach(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.o.completeopt = "menuone,noselect" -- disable scratch preview
+
   if client.resolved_capabilities.document_formatting then
     local opts = { mode = "n", buffer = nil, silent = true, noremap = true, nowait = false }
     require'which-key'.register({
@@ -15,47 +19,59 @@ local function common_on_attach(client)
     }, opts)
   end
 
-  require'aerial'.on_attach(client)
-  -- require'lsp_signature'.on_attach(lsp_signature_cfg)
 end
 
 M.config = function()
 
   local lsp_config = require'lspconfig'
 
-  lsp_config.ccls.setup {
-    -- autostart = false,
-    on_attach = common_on_attach
+  -- servers without custom settings
+  local servers = { 'ccls', 'purescriptls', 'pylsp' }
+  for _, lsp in ipairs(servers) do
+    lsp_config[lsp].setup {
+      on_attach = common_on_attach,
+      flags = { debounce_text_changes = 200, }
+    }
+  end
+
+  lsp_config.rls.setup {
+    settings = {
+      rust = {
+        unstable_features = true,
+        build_on_save = true,
+        all_features = true,
+      },
+    },
+    on_attach = common_on_attach,
+    flags = { debounce_text_changes = 200, }
   }
 
   lsp_config.sumneko_lua.setup {
-    -- autostart = false,
     cmd = {'/usr/bin/lua-language-server'};
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT', path = vim.split(package.path, ';'), },
         diagnostics = { -- don't warn for undefined globals
         globals = {'vim', 'use'},
-      },
-      workspace = { -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+        workspace = { -- Make the server aware of Neovim runtime files
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+          },
+        },
+        telemetry = { enable = false, },
       },
     },
-    telemetry = { enable = false, },
-  },
-    },
-    on_attach = common_on_attach
+    on_attach = common_on_attach,
+    flags = { debounce_text_changes = 200, }
   }
 
-  lsp_config.purescriptls.setup {
-    on_attach = common_on_attach
-  }
+  require'lsp_signature'.setup({
+    bind = true,
+    handler_opts = { border = "single" }
+  })
 
-  lsp_config.pylsp.setup {
-    on_attach = common_on_attach
-  }
 
 end
 

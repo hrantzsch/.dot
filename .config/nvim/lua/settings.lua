@@ -29,11 +29,24 @@ vim.o.softtabstop = 2
 vim.o.smartindent = true
 vim.o.expandtab = true
 
--- completion
-vim.o.completeopt = "menu,noselect"
-
 -- python host prog, relevant for virtualenvs
 vim.g.python3_host_prog = "/usr/bin/python"
 -- disable python2
 vim.g.loaded_python_provider = 0
 
+-- appearence
+vim.o.termguicolors = true
+
+vim.wo.number = true
+vim.o.relativenumber = true
+
+vim.wo.signcolumn = "yes"
+
+vim.cmd("autocmd TextYankPost * lua vim.highlight.on_yank {timeout = 250}")
+
+vim.g["everforest_enable_italic"] = 1
+-- vim.g["everforest_background"] = 'soft'
+vim.g["everforest_better_performance"] = 1
+vim.cmd("colorscheme everforest")
+
+vim.cmd("hi Comment cterm=italic")

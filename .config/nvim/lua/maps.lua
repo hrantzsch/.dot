@@ -51,9 +51,6 @@ nmap('<A-p>', ':bN<CR>')
 nmap('<A-b>', '<C-^>')
 
 
--- Lspsaga show signature help
-imap('<C-i>', '<C-o>:Lspsaga signature_help<cr>')
-
 local function toggle_lsp()
   if next(vim.lsp.get_active_clients()) == nil then
     vim.cmd "LspStart"
@@ -79,17 +76,11 @@ end
 
 local wk_mappings = {
   ["<leader>"] = {
-    a = {"<cmd>AerialOpen<cr>",                                       "Aerial"},
     c = {
       name = "Config",
       c = {"<cmd>Telescope colorscheme<cr>",                          "Colorscheme"},
       e = {"<cmd>edit $MYVIMRC<cr>",                                  "Open Config"},
-      p = {
-        name = "Packer",
-        c = {"<cmd>PackerCompile<cr>",                                  "Run PackerCompile"},
-        s = {"<cmd>PackerSync<cr>",                                     "Run PackerSync"},
-        u = {"<cmd>PackerUpdate<cr>",                                   "Run PackerUpdate"},
-      },
+      u = {"<cmd>PackerUpdate<cr>",                                   "Run PackerUpdate"},
     },
 
      g = {
@@ -110,20 +101,15 @@ local wk_mappings = {
 
     l = {
       name = "LSP",
-      a = {"<cmd>Lspsaga code_action<cr>",                            "Code Action"},
-      A = {"<cmd>Lspsaga range_code_action<cr>",                      "Selected Action"},
+      a = {"<cmd>lua vim.lsp.buf.code_action<cr>",                    "Code Action"},
+      A = {"<cmd>lua vim.lsp.buf.range_code_action<cr>",              "Range Action"},
       d = {"<cmd>Telescope lsp_document_diagnostics<cr>",             "Document Diagnostics" },
       D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>",            "Workspace Diagnostics" },
       f = {"<cmd>lua vim.lsp.buf.formatting()<cr>",                   "Format"},
-      h = {"<cmd>Lspsaga hover_doc<cr>",                              "Hover Doc"},
       i = {"<cmd>LspInfo<cr>",                                        "Info"},
-      j = {"<cmd>Lspsaga diagnostic_jump_next<cr>",                   "Next Diagnostic"},
-      k = {"<cmd>Lspsaga diagnostic_jump_prev<cr>",                   "Prev Diagnostic"},
-      l = {"<cmd>Lspsaga lsp_finder<cr>",                             "LSP Finder"},
-      L = {"<cmd>Lspsaga show_line_diagnostics<cr>",                  "Line Diagnostics"},
-      p = {"<cmd>Lspsaga preview_definition<cr>",                     "Preview Definition"},
+      L = {"<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", "Line Diagnostics"},
       q = {"<cmd>Telescope quickfix<cr>",                             "Quickfix"},
-      r = {"<cmd>Lspsaga rename<cr>",                                 "Rename"},
+      r = {"<cmd>lua vim.lsp.buf.rename()<cr>",                       "Rename"},
       S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",        "Workspace Symbols"},
       s = {"<cmd>Telescope lsp_document_symbols<cr>",                 "Document Symbols"},
       t = {toggle_lsp,                                                "Toggle LSP"},
@@ -135,8 +121,8 @@ local wk_mappings = {
       name = "Telescope",
       g = {"<cmd>Telescope live_grep<cr>",                            "Live Grep"},
       a = {"<cmd>Telescope grep_string<cr>",                          "Grep String"},
-      h = {"<cmd>TSToggleAll highlight<cr>",                          "Toggle Highlight"},
-      i = {"<cmd>TSToggleAll indent<cr>",                             "Toggle Indent"},
+      -- h = {"<cmd>TSToggleAll highlight<cr>",                          "Toggle Highlight"},
+      -- i = {"<cmd>TSToggleAll indent<cr>",                             "Toggle Indent"},
     },
 
     ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Open Buffer"},
@@ -148,10 +134,10 @@ local wk_mappings = {
   -- shortcuts
   ["[c"]    = {"<cmd>lua require 'gitsigns'.prev_hunk()<cr>",         "Prev Git Hunk"},
   ["]c"]    = {"<cmd>lua require 'gitsigns'.next_hunk()<cr>",         "Next Git Hunk"},
-  ["<c-k>"] = {"<cmd>Lspsaga hover_doc<cr>",                          "Hover Doc"},
+  ["<c-k>"] = {"<cmd>lua vim.lsp.buf.hover()<cr>",                    "Hover Doc"},
   ["<c-]>"] = {"<cmd>lua vim.lsp.buf.definition()<cr>",               "Go to Definition"},
-  ["[d"]    = {"<cmd>Lspsaga diagnostic_jump_prev<cr>",               "Prev Diagnostic"},
-  ["]d"]    = {"<cmd>Lspsaga diagnostic_jump_next<cr>",               "Next Diagnostic"},
+  ["[d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",         "Prev Diagnostic"},
+  ["]d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",         "Next Diagnostic"},
 }
 
 local opts = {
