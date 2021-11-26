@@ -40,7 +40,6 @@ require("packer").startup(function()
             timeout = 100, -- ms
             msg_bg_fillchar = " ",
           },
-          initial_mode = "normal",
         }
       }
       t.load_extension('fzy_native')
@@ -142,6 +141,10 @@ require("packer").startup(function()
   }
 
   use "purescript-contrib/purescript-vim"
+
+  use "gabrielpoca/replacer.nvim"
+
+  use "simrat39/symbols-outline.nvim"
 
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then

@@ -38,7 +38,7 @@ vim.g.loaded_python_provider = 0
 vim.o.termguicolors = true
 
 vim.wo.number = true
-vim.o.relativenumber = true
+vim.o.relativenumber = false
 
 vim.wo.signcolumn = "yes"
 
