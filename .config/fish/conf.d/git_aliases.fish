@@ -160,3 +160,5 @@ alias glp="_git_log_prettily"
 
 # own additions
 alias gfa='git fetch --all --prune --prune-tags'
+# duplicate of gdc
+alias gdca='git diff --cached'
