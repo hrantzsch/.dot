@@ -6,6 +6,10 @@ if status is-interactive
     set -gx BROWSER firefox
     set -gx TERMINAL alacritty
 
+    # fish
+    # disable greeting
+    set fish_greeting
+
     # initialize gpg-agent
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)

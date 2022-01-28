@@ -162,3 +162,6 @@ alias glp="_git_log_prettily"
 alias gfa='git fetch --all --prune --prune-tags'
 # duplicate of gdc
 alias gdca='git diff --cached'
+alias gau='git add --update'
+alias gap='git add --patch'
+alias gapa='git add --patch'
