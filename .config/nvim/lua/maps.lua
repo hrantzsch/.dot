@@ -103,8 +103,8 @@ local wk_mappings = {
 
     l = {
       name = "LSP",
-      a = {"<cmd>lua vim.lsp.buf.code_action<cr>",                    "Code Action"},
-      A = {"<cmd>lua vim.lsp.buf.range_code_action<cr>",              "Range Action"},
+      a = {"<cmd>lua vim.lsp.buf.code_action()<cr>",                  "Code Action"},
+      A = {"<cmd>lua vim.lsp.buf.range_code_action()<cr>",            "Range Action"},
       d = {"<cmd>Telescope lsp_document_diagnostics<cr>",             "Document Diagnostics" },
       D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>",            "Workspace Diagnostics" },
       f = {"<cmd>lua vim.lsp.buf.formatting()<cr>",                   "Format"},

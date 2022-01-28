@@ -69,7 +69,8 @@ M.config = function()
 
   require'lsp_signature'.setup({
     bind = true,
-    handler_opts = { border = "single" }
+    handler_opts = { border = "shadow" },
+    toggle_key = '<M-x>',
   })
 
 

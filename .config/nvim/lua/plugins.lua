@@ -5,12 +5,12 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 -- Run PackerCompile when there are changes in plugins.lua
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+--   augroup end
+-- ]])
 
 -- Config
 require("packer").startup(function()
@@ -83,7 +83,7 @@ require("packer").startup(function()
 
   use "RRethy/vim-illuminate"  -- highlight word under cursor
 
-  use "tpope/vim-commentary"
+  use "tpope/vim-commentary" -- TODO use  numToStr/Comment.nvim instead
   use "tpope/vim-repeat"
   use "tpope/vim-surround"
 
@@ -91,7 +91,6 @@ require("packer").startup(function()
     "xolox/vim-notes",
     requires = "xolox/vim-misc",
     config = function()
-      vim.g.notes_directories = {'~/Nextcloud/Notes'}
       vim.g.notes_suffix = '.md'
       vim.g.notes_unicode_enabled = 0
       -- " make the C-] combination search for @tags:
@@ -105,11 +104,21 @@ require("packer").startup(function()
     branch = "master"
   }
 
+  use "sainnhe/sonokai"
+  use {
+    "sainnhe/everforest",
+    config = function()
+      vim.g["everforest_enable_italic"] = 1
+      -- vim.g["everforest_background"] = 'soft'
+      vim.g["everforest_better_performance"] = 1
+      vim.cmd("colorscheme everforest")
+    end
+  }
+
   use {
     "itchyny/lightline.vim",
     config = function()
       vim.g.lightline = {
-        -- colorscheme is configured in settings.lua
         colorscheme = 'everforest',
         enable = { statusline = true, tabline = false },
         active = {
@@ -125,9 +134,6 @@ require("packer").startup(function()
       }
     end
   }
-
-  use "sainnhe/sonokai"
-  use "sainnhe/everforest"
 
   use {
     "SirVer/ultisnips",
@@ -151,3 +157,6 @@ require("packer").startup(function()
     require('packer').sync()
   end
 end)
+
+-- configure outside of packer to allow overriding
+vim.g.notes_directories = {'~/Nextcloud/Notes'}
