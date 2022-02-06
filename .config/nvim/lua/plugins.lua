@@ -37,7 +37,7 @@ require("packer").startup(function()
           set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
           preview = {
             filesize_limit = 2, -- MB
-            timeout = 100, -- ms
+            timeout = 500, -- ms
             msg_bg_fillchar = " ",
           },
         }
@@ -60,11 +60,18 @@ require("packer").startup(function()
   }
 
   use {
-    "akinsho/nvim-bufferline.lua",
-    requires = "kyazdani42/nvim-web-devicons",
+    'romgrk/barbar.nvim',
+    requires = {'kyazdani42/nvim-web-devicons'},
     config = function()
-      require("bufferline-config").config()
-    end,
+      vim.g.bufferline = {
+        animation = false,
+        -- If set, the letters for each buffer in buffer-pick mode will be
+        -- assigned based on their name.
+        semantic_letters = false,
+        -- New buffer letters are assigned in this order.
+        letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
+    }
+    end
   }
 
   use {
@@ -101,35 +108,47 @@ require("packer").startup(function()
 
   use {
     "mg979/vim-visual-multi",
-    branch = "master"
-  }
-
-  use "sainnhe/sonokai"
-  use {
-    "sainnhe/everforest",
     config = function()
-      vim.g["everforest_enable_italic"] = 1
-      -- vim.g["everforest_background"] = 'soft'
-      vim.g["everforest_better_performance"] = 1
-      vim.cmd("colorscheme everforest")
+      vim.g["VM_theme"] = "purplegray"
     end
   }
 
   use {
-    "itchyny/lightline.vim",
+    "rose-pine/neovim",
+    as = "rose-pine",
     config = function()
-      vim.g.lightline = {
-        colorscheme = 'everforest',
-        enable = { statusline = true, tabline = false },
-        active = {
-          left = {
-            { 'mode', 'spell', 'paste' },
-            { 'readonly', 'absolutepath', 'modified', }
-          },
-          right = {
-            { 'percent', 'lineinfo', },
-            { 'fileencoding', 'filetype', }
-          }
+      vim.g["rose_pine_variant"] = "moon"
+      vim.g["rose_pine_disable_background"] = true
+      vim.g["rose_pine_inactive_background"] = true
+
+      vim.cmd("colorscheme rose-pine")
+
+      local palette = require'rose-pine.palette'
+      local blend = require'rose-pine.util'.blend
+      local searchbg = blend(palette.rose, palette.base, 0.8)
+      vim.cmd("hi Search guibg="..searchbg.." guifg="..palette.base)
+
+      local visualbg = blend(palette.iris, palette.base, 0.5)
+      vim.cmd("hi Visual guibg="..visualbg)
+
+      -- CursorLine is used by vim-illuminate
+      local cursorbg = blend(palette.iris, palette.base, 0.2)
+      vim.cmd("hi CursorLine guibg="..cursorbg)
+
+      -- Symbols Outline
+      vim.cmd("hi FocusedSymbol guibg="..palette.rose.." guifg="..palette.base)
+    end
+  }
+
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require("lualine").setup {
+        options = {
+          theme = 'auto',
+          section_separators = { left = '', right = ' ' },
+          component_separators = { left = '', right = '' }
         }
       }
     end
@@ -148,9 +167,16 @@ require("packer").startup(function()
 
   use "purescript-contrib/purescript-vim"
 
-  use "gabrielpoca/replacer.nvim"
+  use "gabrielpoca/replacer.nvim" -- editable quickfix window
 
-  use "simrat39/symbols-outline.nvim"
+  use {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      vim.g.symbols_outline = {
+        position = 'left',
+      }
+    end
+  }
 
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then

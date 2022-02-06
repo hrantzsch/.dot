@@ -113,7 +113,7 @@ local wk_mappings = {
       q = {"<cmd>Telescope quickfix<cr>",                             "Quickfix"},
       r = {"<cmd>lua vim.lsp.buf.rename()<cr>",                       "Rename"},
       S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",        "Workspace Symbols"},
-      s = {"<cmd>Telescope lsp_document_symbols<cr>",                 "Document Symbols"},
+      s = {"<cmd>SymbolsOutlineOpen<cr>",                             "Symbols Outline"},
       t = {toggle_lsp,                                                "Toggle LSP"},
       u = {"<cmd>Telescope lsp_references<cr>",                       "References"},
       x = {"<cmd>cclose<cr>",                                         "Close Quickfix"},
@@ -127,9 +127,11 @@ local wk_mappings = {
       -- i = {"<cmd>TSToggleAll indent<cr>",                             "Toggle Indent"},
     },
 
-    ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Open Buffer"},
+    ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Choose Buffer"},
     o            = {"<cmd>Telescope find_files<cr>",                  "Open File"},
-    d            = {"<cmd>bp|bd #<cr>",                               "Close Buffer"},
+    -- d            = {"<cmd>bp|bd #<cr>",                               "Close Buffer"},
+    b            = {"<cmd>BufferPick<cr>",                            "Pick Buffer"},
+    d            = {"<cmd>BufferClose<cr>",                           "Close Buffer"},
     p            = {prose_mode,                                       "Toggle Prose Mode"},
   },
 
@@ -140,6 +142,8 @@ local wk_mappings = {
   ["<c-]>"] = {"<cmd>lua vim.lsp.buf.definition()<cr>",               "Go to Definition"},
   ["[d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",         "Prev Diagnostic"},
   ["]d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",         "Next Diagnostic"},
+  ["[b"]    = {"<cmd>BufferPrevious<cr>",                             "Prev Buffer"},
+  ["]b"]    = {"<cmd>BufferNext<cr>",                                 "Next Buffer"},
 }
 
 local opts = {

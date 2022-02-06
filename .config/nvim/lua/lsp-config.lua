@@ -3,7 +3,7 @@ local M = {}
 local function common_on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- vim.o.completeopt = "menuone,noselect" -- disable scratch preview
+  vim.o.completeopt = "menuone,noselect" -- disable scratch preview
 
   if client.resolved_capabilities.document_formatting then
     local opts = { mode = "n", buffer = nil, silent = true, noremap = true, nowait = false }
