@@ -1,54 +1,47 @@
-set imaginary-option "#123123"
-
-set notification-error-bg       "#2c2d30" # bg
-set notification-error-fg       "#be868c" # bright:red
-set notification-warning-bg     "#2c2d30" # bg
-set notification-warning-fg     "#ab916d" # bright:yellow
-set notification-bg             "#2c2d30" # bg
-set notification-fg             "#7f9d77" # bright:green
-
-set completion-bg               "#363a3e" # bg2
-set completion-fg               "#afb7c0" # fg
-set completion-group-bg         "#363a3e" # bg1
-set completion-group-fg         "#ab916d" # yellow
-set completion-highlight-bg     "#759abd" # bright:blue
-set completion-highlight-fg     "#363a3e" # bg2
-
-# Define the color in index mode
-set index-bg                    "#363a3e" # bg2
-set index-fg                    "#afb7c0" # fg
-set index-active-bg             "#759abd" # bright:blue
-set index-active-fg             "#363a3e" # bg2
-
-set inputbar-bg                 "#2c2d30" # bg
-set inputbar-fg                 "#afb7c0" # fg
-
-set statusbar-bg                "#363a3e" # bg2
-set statusbar-fg                "#afb7c0" # fg
-
-set highlight-active-color      "#a88cb3"
-set highlight-color             "#5da19f"
-
-set default-bg                  "#2c2d30" # bg
-set default-fg                  "#afb7c0" # fg
-set render-loading              true
-set render-loading-bg           "#2c2d30" # bg
-set render-loading-fg           "#afb7c0" # fg
-
-# Recolor book content's color
-set recolor-lightcolor          "#2c2d30" # bg
-set recolor-darkcolor           "#afb7c0" # fg
-set recolor                     "true"
-# set recolor-keephue             true      # keep original color
-
-# snow colorscheme
-#set $bg         #2c2d30
-#set $red        #be868c
-#set $green      #7f9d77
-#set $yellow     #ab916d
-#set $blue       #759abd
-#set $purple     #a88cb3
-#set $aqua       #5da19f
-#set $gray       #afb7c0
-#set $darkgray   #363a3e
+# https://github.com/rose-pine/rose-pine-theme
+# Soho vibes for Zathura: Rosé Pine Dawn
 #
+# Usage:
+# Copy contents of this file to ~/.config/zathura/zathurarc
+#
+# Change 'recolor' and 'recolor-keephue' to true to change
+# the document colors for a more uniform viewing experience.
+
+set default-bg                  "#faf4ed"
+set default-fg                  "#575279"
+
+set statusbar-fg                "#9893a5"
+set statusbar-bg                "#fffaf3"
+
+set inputbar-bg                 "#6e6a86"
+set inputbar-fg                 "#faf4ed"
+
+set notification-bg             "#6e6a86"
+set notification-fg             "#faf4ed"
+
+set notification-error-bg       "#6e6a86"
+set notification-error-fg       "#ea9d34"
+
+set notification-warning-bg     "#6e6a86"
+set notification-warning-fg     "#ea9d34"
+
+set highlight-color             "#b4637a"
+set highlight-active-color      "#d7827e"
+
+set completion-bg               "#6e6a86"
+set completion-fg               "#d7827e"
+
+set completion-highlight-fg     "#575279"
+set completion-highlight-bg     "#d7827e"
+
+set recolor-lightcolor          "#faf4ed"
+set recolor-darkcolor           "#575279"
+
+set recolor                     "true"
+set recolor-keephue             "true"
+
+set index-bg                    "#faf4ed"
+set index-fg                    "#575279"
+
+set index-active-bg             "#575279"
+set index-active-fg             "#faf4ed"

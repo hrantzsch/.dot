@@ -118,7 +118,7 @@ require("packer").startup(function()
     as = "rose-pine",
     config = function()
       vim.g["rose_pine_variant"] = "moon"
-      vim.g["rose_pine_disable_background"] = true
+      vim.g["rose_pine_disable_background"] = false
       vim.g["rose_pine_inactive_background"] = true
 
       vim.cmd("colorscheme rose-pine")
