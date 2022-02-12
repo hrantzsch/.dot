@@ -18,15 +18,34 @@ local function common_on_attach(client, bufnr)
       ["<leader>f"] = {"<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Format Range"}
     }, opts)
   end
+end
 
+local function setup_ui()
+  local border = {
+      {"🭽", "FloatBorder"}, {"▔", "FloatBorder"}, {"🭾", "FloatBorder"}, {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"}, {"▁", "FloatBorder"}, {"🭼", "FloatBorder"}, {"▏", "FloatBorder"},
+  }
+  local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+  function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or border
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+  end
+
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 end
 
 M.config = function()
-
   local lsp_config = require'lspconfig'
 
+  setup_ui()
+
   -- servers without custom settings
-  local servers = { 'ccls', 'purescriptls', 'pylsp' }
+  local servers = { 'clangd', 'purescriptls', 'pylsp' }
   for _, lsp in ipairs(servers) do
     lsp_config[lsp].setup {
       on_attach = common_on_attach,
@@ -34,6 +53,7 @@ M.config = function()
     }
   end
 
+  -- servers with custom settings
   lsp_config.rls.setup {
     settings = {
       rust = {
@@ -52,7 +72,7 @@ M.config = function()
       Lua = {
         runtime = { version = 'LuaJIT', path = vim.split(package.path, ';'), },
         diagnostics = { -- don't warn for undefined globals
-        globals = {'vim', 'use'},
+          globals = {'vim', 'use'},
         },
         workspace = { -- Make the server aware of Neovim runtime files
           library = {
@@ -67,11 +87,11 @@ M.config = function()
     flags = { debounce_text_changes = 200, }
   }
 
-  require'lsp_signature'.setup({
+  require'lsp_signature'.setup {
     bind = true,
-    handler_opts = { border = "shadow" },
+    handler_opts = { border = "rounded" },
     toggle_key = '<M-x>',
-  })
+  }
 
 
 end

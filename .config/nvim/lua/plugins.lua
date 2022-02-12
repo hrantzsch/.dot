@@ -5,12 +5,12 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 -- Run PackerCompile when there are changes in plugins.lua
--- vim.cmd([[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
---   augroup end
--- ]])
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
 -- Config
 require("packer").startup(function()
@@ -137,6 +137,10 @@ require("packer").startup(function()
 
       -- Symbols Outline
       vim.cmd("hi FocusedSymbol guibg="..palette.rose.." guifg="..palette.base)
+
+      -- floating windows (lspconfig)
+      vim.cmd("hi NormalFloat guibg="..palette.base)
+      vim.cmd("hi FloatBorder guifg="..palette.rose.." guibg="..palette.base)
     end
   }
 
