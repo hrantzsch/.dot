@@ -114,13 +114,24 @@ require("packer").startup(function()
   }
 
   use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end
+  }
+
+  use {
     "rose-pine/neovim",
     as = "rose-pine",
     config = function()
-      vim.g["rose_pine_variant"] = "moon"
-      vim.g["rose_pine_disable_background"] = false
-      vim.g["rose_pine_inactive_background"] = true
-
+      require("rose-pine").setup {
+        dark_variant = "moon",
+        disable_background = false,
+        dim_nc_background = true,
+      }
       vim.cmd("colorscheme rose-pine")
 
       local palette = require'rose-pine.palette'
@@ -141,6 +152,10 @@ require("packer").startup(function()
       -- floating windows (lspconfig)
       vim.cmd("hi NormalFloat guibg="..palette.base)
       vim.cmd("hi FloatBorder guifg="..palette.rose.." guibg="..palette.base)
+
+      -- indent-blankline.nvim
+      local indentColor = blend(palette.iris, palette.base, 0.1)
+      vim.cmd("hi IndentBlanklineChar guifg="..indentColor.." gui=nocombine")
     end
   }
 

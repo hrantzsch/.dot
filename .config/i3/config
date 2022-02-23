@@ -88,6 +88,7 @@ exec --no-startup-id msm_notifier
 exec --no-startup-id nextcloud
 exec --no-startup-id nm-applet
 exec --no-startup-id pa-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id pamac-tray
 exec --no-startup-id signal-desktop
 exec --no-startup-id volumeicon
@@ -123,6 +124,9 @@ bindsym $mod+n               exec $term $term_cmd $edit -c RecentNotes
 bindsym $mod+m               exec $term $term_cmd $edit "$HOME/Nextcloud/Notes/personal-notes.md"
 bindsym Control+Shift+Escape exec $term $term_cmd htop
 
+bindsym $mod+z exec $term $term_cmd --title zettelkasten -- "$HOME/bin/zt"
+bindsym $mod+Shift+z exec $term $term_cmd --title zettelkasten -- "$HOME/bin/lzt"
+
 #
 # --- floating windows ---
 #
@@ -132,10 +136,6 @@ for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pamac-updater"] floating enable
 for_window [class="Pavucontrol"] floating enable
-
-#
-# --- navigation bindings ---
-#
 
 floating_modifier $mod
 
@@ -148,6 +148,11 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+bindsym $mod+Ctrl+l move workspace to output right
 
 workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
@@ -162,12 +167,9 @@ bindsym $mod+e layout toggle split; exec $notify "splitting windows"
 
 bindsym $mod+f           fullscreen toggle
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus       scratchpad show
-bindsym F12              scratchpad show
-
-bindsym $mod+Ctrl+j workspace next
-bindsym $mod+Ctrl+k workspace prev
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus       scratchpad show
+# bindsym F12              scratchpad show
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2

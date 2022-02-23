@@ -7,8 +7,11 @@ idle_bg      = "#26233a"
 idle_fg      = "#6e6a86"
 info_bg      = "#26233a"
 good_bg      = "#26233a"
+good_fg      = "#f6c177"
 warning_bg   = "#26233a"
+warning_fg   = "#c4a7e7"
 critical_bg  = "#26233a"
+critical_fg  = "#eb6f92"
 separator_bg = "#26233a"
 separator_fg = "#6e6a86"
 
@@ -18,10 +21,10 @@ separator_fg = "#6e6a86"
 # buttons = ["play", "next"]
 # on_collapsed_click = "spotify"
 
-# [[block]]
-# block = "custom"
-# command = "watson status"
-# interval = 60
+[[block]]
+block = "custom"
+command = "watson status | sed 's/ (.*/./'"
+interval = 60
 
 [[block]]
 block = "disk_space"
@@ -36,8 +39,8 @@ alert = 10.0
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{mem_used_percents}%"
-format_swap = "{swap_used_percents}%"
+format_mem = "{mem_used_percents}"
+format_swap = "{swap_used_percents}"
 
 [[block]]
 block = "cpu"
