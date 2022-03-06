@@ -154,7 +154,7 @@ require("packer").startup(function()
       vim.cmd("hi FloatBorder guifg="..palette.rose.." guibg="..palette.base)
 
       -- indent-blankline.nvim
-      local indentColor = blend(palette.iris, palette.base, 0.1)
+      local indentColor = blend(palette.iris, palette.base, 0.05)
       vim.cmd("hi IndentBlanklineChar guifg="..indentColor.." gui=nocombine")
     end
   }
