@@ -197,6 +197,8 @@ require("packer").startup(function()
     end
   }
 
+  use { "gpanders/editorconfig.nvim" }
+
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then
     require('packer').sync()

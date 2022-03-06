@@ -105,11 +105,9 @@ local wk_mappings = {
       name = "LSP",
       a = {"<cmd>lua vim.lsp.buf.code_action()<cr>",                  "Code Action"},
       A = {"<cmd>lua vim.lsp.buf.range_code_action()<cr>",            "Range Action"},
-      d = {"<cmd>Telescope lsp_document_diagnostics<cr>",             "Document Diagnostics" },
-      D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>",            "Workspace Diagnostics" },
+      d = {"<cmd>Telescope diagnostics<cr>",                          "Diagnostics" },
       f = {"<cmd>lua vim.lsp.buf.formatting()<cr>",                   "Format"},
       i = {"<cmd>LspInfo<cr>",                                        "Info"},
-      L = {"<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", "Line Diagnostics"},
       q = {"<cmd>Telescope quickfix<cr>",                             "Quickfix"},
       r = {"<cmd>lua vim.lsp.buf.rename()<cr>",                       "Rename"},
       S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",        "Workspace Symbols"},
@@ -140,10 +138,12 @@ local wk_mappings = {
   ["]c"]    = {"<cmd>lua require 'gitsigns'.next_hunk()<cr>",         "Next Git Hunk"},
   ["<c-k>"] = {"<cmd>lua vim.lsp.buf.hover()<cr>",                    "Hover Doc"},
   ["<c-]>"] = {"<cmd>lua vim.lsp.buf.definition()<cr>",               "Go to Definition"},
-  ["[d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",         "Prev Diagnostic"},
-  ["]d"]    = {"<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",         "Next Diagnostic"},
+  ["[d"]    = {"<cmd>lua vim.diagnostic.goto_prev()<cr>",             "Prev Diagnostic"},
+  ["]d"]    = {"<cmd>lua vim.diagnostic.goto_next()<cr>",             "Next Diagnostic"},
   ["[b"]    = {"<cmd>BufferPrevious<cr>",                             "Prev Buffer"},
   ["]b"]    = {"<cmd>BufferNext<cr>",                                 "Next Buffer"},
+  ["[q"]    = {"<cmd>cprevious<cr>",                                  "Prev Quickfix Entry"},
+  ["]q"]    = {"<cmd>cnext<cr>",                                      "Next Quickfix Entry"},
 }
 
 local opts = {
