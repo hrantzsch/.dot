@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Set keyboard repeat rate and layout.
+
+xset r rate 200 30 && setxkbmap -layout us,de -option grp:switch -option caps:escape
+notify-send -t 1000 "Keyboard configured!"

@@ -1,0 +1,3 @@
+#!/bin/bash
+dotfiles=$HOME/.config/nvim
+VIM_NOTES_TEMPLATE=${dotfiles}/zettel-template.md nvim -u ${dotfiles}/init-zettel.lua note:$1

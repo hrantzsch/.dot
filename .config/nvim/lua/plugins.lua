@@ -117,8 +117,8 @@ require("packer").startup(function()
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = true,
+        show_current_context = false,
+        show_current_context_start = false,
       }
     end
   }
@@ -162,10 +162,11 @@ require("packer").startup(function()
   use {
     "nvim-lualine/lualine.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    event = 'ColorScheme', -- fix palette for rose-pine
     config = function()
       require("lualine").setup {
         options = {
-          theme = 'auto',
+          theme = 'rose-pine-alt',
           section_separators = { left = '', right = ' ' },
           component_separators = { left = '', right = '' }
         }

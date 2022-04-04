@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Take a screenshot of a selected region and put it into the clipboard.
+
+maim -s | xclip -selection clipboard -t image/png
