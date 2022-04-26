@@ -42,8 +42,18 @@ require("packer").startup(function()
           },
         }
       }
-      t.load_extension('fzy_native')
     end
+  }
+
+  use {
+    "AckslD/nvim-neoclip.lua",
+    requires = "nvim-telescope/telescope.nvim",
+    config = function()
+      require("neoclip").setup({
+        history = 50,
+      })
+      require('telescope').load_extension('neoclip')
+    end,
   }
 
   use {
@@ -57,6 +67,15 @@ require("packer").startup(function()
       require("gitsigns-config").config()
     end,
     event = "BufRead"
+  }
+
+  use {
+    "lewis6991/spellsitter.nvim",
+    config = function()
+      require("spellsitter").setup {
+        enable = true,
+      }
+    end
   }
 
   use {

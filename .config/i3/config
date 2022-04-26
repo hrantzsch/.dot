@@ -113,7 +113,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+Shift+q kill
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
-set $rofi-cmd "rofi -combi-modi drun,run -show combi -modi combi"
+set $rofi-cmd "rofi -combi-modi drun,run -show combi -show-icons -modi combi"
 
 bindsym $mod+space           exec $rofi-cmd
 bindsym $mod+p               exec rofi-pass

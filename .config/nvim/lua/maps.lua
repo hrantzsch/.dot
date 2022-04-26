@@ -119,10 +119,10 @@ local wk_mappings = {
 
     t = {
       name = "Telescope",
+      t = {"<cmd>Telescope resume<cr>",                               "Resume"},
       g = {"<cmd>Telescope live_grep<cr>",                            "Live Grep"},
       a = {"<cmd>Telescope grep_string<cr>",                          "Grep String"},
-      -- h = {"<cmd>TSToggleAll highlight<cr>",                          "Toggle Highlight"},
-      -- i = {"<cmd>TSToggleAll indent<cr>",                             "Toggle Indent"},
+      y = {"<cmd>Telescope neoclip<cr>",                              "Neoclip"},
     },
 
     ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Choose Buffer"},
@@ -144,6 +144,7 @@ local wk_mappings = {
   ["]b"]    = {"<cmd>BufferNext<cr>",                                 "Next Buffer"},
   ["[q"]    = {"<cmd>cprevious<cr>",                                  "Prev Quickfix Entry"},
   ["]q"]    = {"<cmd>cnext<cr>",                                      "Next Quickfix Entry"},
+  ["<c-p>"] = {"<cmd>Telescope neoclip<cr>",                          "Neoclip"},
 }
 
 local opts = {
