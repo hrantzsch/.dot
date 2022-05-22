@@ -232,3 +232,14 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
+bindsym $mod+d mode "$mode_displays"
+set $mode_displays set display mode: (1) one screen, (2) two screens, (3) HDMI
+mode "$mode_displays" {
+    bindsym 1       exec --no-startup-id "autorandr --load one",      mode "default"
+    bindsym 2       exec --no-startup-id "autorandr --load two",      mode "default"
+    bindsym 3       exec --no-startup-id "autorandr --load hdmi",     mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
