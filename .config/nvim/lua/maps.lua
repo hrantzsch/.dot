@@ -50,7 +50,6 @@ nmap('<A-p>', ':bN<CR>')
 
 nmap('<A-b>', '<C-^>')
 
-
 local function toggle_lsp()
   if next(vim.lsp.get_active_clients()) == nil then
     vim.cmd "LspStart"
@@ -59,18 +58,20 @@ local function toggle_lsp()
   end
 end
 
-local prose_enabled = false;
+local function toggle_wrap()
+  vim.o.wrap = not vim.o.wrap
+end
+
 local function prose_mode()
-  if not prose_enabled then
-    vim.o.wrap = true
-    vim.o.spell = true
-    print('Prose mode enabled')
-  else
+  if vim.o.wrap or vim.o.spell then
     vim.o.wrap = false
     vim.o.spell = false
     print('Prose mode disabled')
+  else
+    vim.o.wrap = true
+    vim.o.spell = true
+    print('Prose mode enabled')
   end
-  prose_enabled = not prose_enabled
 end
 
 
@@ -114,7 +115,6 @@ local wk_mappings = {
       s = {"<cmd>SymbolsOutlineOpen<cr>",                             "Symbols Outline"},
       t = {toggle_lsp,                                                "Toggle LSP"},
       u = {"<cmd>Telescope lsp_references<cr>",                       "References"},
-      x = {"<cmd>cclose<cr>",                                         "Close Quickfix"},
     },
 
     t = {
@@ -127,10 +127,13 @@ local wk_mappings = {
 
     ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Choose Buffer"},
     o            = {"<cmd>Telescope find_files<cr>",                  "Open File"},
+    j            = {"<cmd>Telescope jumplist<cr>",                    "Jumplist"},
     -- d            = {"<cmd>bp|bd #<cr>",                               "Close Buffer"},
     b            = {"<cmd>BufferPick<cr>",                            "Pick Buffer"},
     d            = {"<cmd>BufferClose<cr>",                           "Close Buffer"},
     p            = {prose_mode,                                       "Toggle Prose Mode"},
+    w            = {toggle_wrap,                                      "Toggle Wrap"},
+    q            = {"<cmd>cclose<cr>",                                "Close Quickfix"},
   },
 
   -- shortcuts

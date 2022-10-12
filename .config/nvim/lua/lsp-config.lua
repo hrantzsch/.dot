@@ -5,14 +5,14 @@ local function common_on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.o.completeopt = "menuone,noselect" -- disable scratch preview
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     local opts = { mode = "n", buffer = nil, silent = true, noremap = true, nowait = false }
     require'which-key'.register({
-      ["<leader>f"] = {"<cmd>lua vim.lsp.buf.formatting()<cr>", "Format Buffer"}
+      ["<leader>f"] = {"<cmd>lua vim.lsp.buf.format()<cr>", "Format Buffer"}
     }, opts)
   end
 
-  if client.resolved_capabilities.document_range_formatting then
+  if client.server_capabilities.documentRangeFormattingProvider then
     local opts = { mode = "v", buffer = nil, silent = true, noremap = true, nowait = false }
     require'which-key'.register({
       ["<leader>f"] = {"<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Format Range"}

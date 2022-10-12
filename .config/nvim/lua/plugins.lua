@@ -40,6 +40,11 @@ require("packer").startup(function()
             timeout = 500, -- ms
             msg_bg_fillchar = " ",
           },
+          mappings = {
+            n = {
+              ["<c-b>"] = "delete_buffer",
+            },
+          },
         }
       }
     end
@@ -80,17 +85,14 @@ require("packer").startup(function()
 
   use {
     'romgrk/barbar.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
+    requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      vim.g.bufferline = {
+      require'bufferline'.setup {
         animation = false,
-        -- If set, the letters for each buffer in buffer-pick mode will be
-        -- assigned based on their name.
         semantic_letters = false,
-        -- New buffer letters are assigned in this order.
         letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
-    }
-    end
+      }
+    end,
   }
 
   use {
@@ -105,9 +107,22 @@ require("packer").startup(function()
     end
   }
 
+  use {
+    "nvim-treesitter/nvim-treesitter-context",
+    requires = "nvim-treesitter/nvim-treesitter"
+  }
+
   use "folke/which-key.nvim"
 
-  use "RRethy/vim-illuminate"  -- highlight word under cursor
+  use {
+    "RRethy/vim-illuminate",  -- highlight word under cursor
+    config = function()
+      require('illuminate').configure({
+        providers = { 'regex', },
+        delay = 50, -- ms
+      })
+    end
+  }
 
   use "tpope/vim-commentary" -- TODO use  numToStr/Comment.nvim instead
   use "tpope/vim-repeat"
@@ -126,6 +141,13 @@ require("packer").startup(function()
   }
 
   use {
+    "iamcco/markdown-preview.nvim",
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end
+  }
+
+  use {
     "mg979/vim-visual-multi",
     config = function()
       vim.g["VM_theme"] = "purplegray"
@@ -136,7 +158,7 @@ require("packer").startup(function()
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("indent_blankline").setup {
-        show_current_context = false,
+        show_current_context = true,
         show_current_context_start = false,
       }
     end
@@ -155,15 +177,13 @@ require("packer").startup(function()
 
       local palette = require'rose-pine.palette'
       local blend = require'rose-pine.util'.blend
-      local searchbg = blend(palette.rose, palette.base, 0.8)
+      local searchbg = blend(palette.love, palette.base, 0.8)
       vim.cmd("hi Search guibg="..searchbg.." guifg="..palette.base)
 
       local visualbg = blend(palette.iris, palette.base, 0.5)
-      vim.cmd("hi Visual guibg="..visualbg)
+      -- vim.cmd("hi Visual guibg="..visualbg)
 
-      -- CursorLine is used by vim-illuminate
-      local cursorbg = blend(palette.iris, palette.base, 0.2)
-      vim.cmd("hi CursorLine guibg="..cursorbg)
+      vim.cmd("hi IncSearch gui=bold guifg="..palette.love.." guibg="..palette.base)
 
       -- Symbols Outline
       vim.cmd("hi FocusedSymbol guibg="..palette.rose.." guifg="..palette.base)
@@ -175,13 +195,15 @@ require("packer").startup(function()
       -- indent-blankline.nvim
       local indentColor = blend(palette.iris, palette.base, 0.05)
       vim.cmd("hi IndentBlanklineChar guifg="..indentColor.." gui=nocombine")
+
+      -- nvim-treesitter-context
+      vim.cmd("hi TreesitterContext guibg="..blend(palette.rose, palette.base, 0.1))
     end
   }
 
   use {
     "nvim-lualine/lualine.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    event = 'ColorScheme', -- fix palette for rose-pine
     config = function()
       require("lualine").setup {
         options = {
@@ -216,8 +238,6 @@ require("packer").startup(function()
       }
     end
   }
-
-  use { "gpanders/editorconfig.nvim" }
 
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then
