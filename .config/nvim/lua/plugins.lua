@@ -68,9 +68,6 @@ require("packer").startup(function()
   use {
     "lewis6991/gitsigns.nvim",
     requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("gitsigns-config").config()
-    end,
     event = "BufRead"
   }
 
@@ -179,9 +176,6 @@ require("packer").startup(function()
       local blend = require'rose-pine.util'.blend
       local searchbg = blend(palette.love, palette.base, 0.8)
       vim.cmd("hi Search guibg="..searchbg.." guifg="..palette.base)
-
-      local visualbg = blend(palette.iris, palette.base, 0.5)
-      -- vim.cmd("hi Visual guibg="..visualbg)
 
       vim.cmd("hi IncSearch gui=bold guifg="..palette.love.." guibg="..palette.base)
 

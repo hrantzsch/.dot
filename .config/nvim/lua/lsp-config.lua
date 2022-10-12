@@ -67,20 +67,12 @@ M.config = function()
   }
 
   lsp_config.sumneko_lua.setup {
-    cmd = {'/usr/bin/lua-language-server'};
     settings = {
       Lua = {
-        runtime = { version = 'LuaJIT', path = vim.split(package.path, ';'), },
-        diagnostics = { -- don't warn for undefined globals
-          globals = {'vim', 'use'},
-        },
-        workspace = { -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
-        },
-        telemetry = { enable = false, },
+        runtime = { version = 'LuaJIT' },
+        diagnostics = { globals = {'vim', 'use'} },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+        telemetry = { enable = false },
       },
     },
     on_attach = common_on_attach,
@@ -92,8 +84,6 @@ M.config = function()
     handler_opts = { border = "rounded" },
     toggle_key = '<M-x>',
   }
-
-
 end
 
 -- symbols for autocomplete
