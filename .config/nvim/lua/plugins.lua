@@ -1,7 +1,8 @@
 -- auto install packer
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  PackerBootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  PackerBootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
 end
 
 -- Run PackerCompile when there are changes in plugins.lua
@@ -26,10 +27,10 @@ require("packer").startup(function()
 
   use {
     "nvim-telescope/telescope.nvim",
-    requires = {"nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim"},
+    requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" },
     config = function()
-      local t = require'telescope'
-      t.setup{
+      local t = require("telescope")
+      t.setup {
         defaults = {
           layout_config = { horizontal = { prompt_position = "top" } },
           layout_strategy = "flex",
@@ -54,10 +55,10 @@ require("packer").startup(function()
     "AckslD/nvim-neoclip.lua",
     requires = "nvim-telescope/telescope.nvim",
     config = function()
-      require("neoclip").setup({
+      require("neoclip").setup {
         history = 50,
-      })
-      require('telescope').load_extension('neoclip')
+      }
+      require("telescope").load_extension("neoclip")
     end,
   }
 
@@ -67,6 +68,9 @@ require("packer").startup(function()
 
   use {
     "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup {}
+    end,
     requires = "nvim-lua/plenary.nvim",
     event = "BufRead"
   }
@@ -84,7 +88,7 @@ require("packer").startup(function()
     'romgrk/barbar.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require'bufferline'.setup {
+      require("bufferline").setup {
         animation = false,
         semantic_letters = false,
         letters = 'asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP',
@@ -97,9 +101,9 @@ require("packer").startup(function()
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = function()
-      require'nvim-treesitter.configs'.setup {
-        highlight = {enable = true},
-        indent = { enable = false},
+      require("nvim-treesitter.configs").setup {
+        highlight = { enable = true },
+        indent = { enable = false },
       }
     end
   }
@@ -112,9 +116,9 @@ require("packer").startup(function()
   use "folke/which-key.nvim"
 
   use {
-    "RRethy/vim-illuminate",  -- highlight word under cursor
+    "RRethy/vim-illuminate", -- highlight word under cursor
     config = function()
-      require('illuminate').configure({
+      require("illuminate").configure({
         providers = { 'regex', },
         delay = 50, -- ms
       })
@@ -172,26 +176,26 @@ require("packer").startup(function()
       }
       vim.cmd("colorscheme rose-pine")
 
-      local palette = require'rose-pine.palette'
-      local blend = require'rose-pine.util'.blend
+      local palette = require("rose-pine.palette")
+      local blend = require("rose-pine.util").blend
       local searchbg = blend(palette.love, palette.base, 0.8)
-      vim.cmd("hi Search guibg="..searchbg.." guifg="..palette.base)
+      vim.cmd("hi Search guibg=" .. searchbg .. " guifg=" .. palette.base)
 
-      vim.cmd("hi IncSearch gui=bold guifg="..palette.love.." guibg="..palette.base)
+      vim.cmd("hi IncSearch gui=bold guifg=" .. palette.love .. " guibg=" .. palette.base)
 
       -- Symbols Outline
-      vim.cmd("hi FocusedSymbol guibg="..palette.rose.." guifg="..palette.base)
+      vim.cmd("hi FocusedSymbol guibg=" .. palette.rose .. " guifg=" .. palette.base)
 
       -- floating windows (lspconfig)
-      vim.cmd("hi NormalFloat guibg="..palette.base)
-      vim.cmd("hi FloatBorder guifg="..palette.rose.." guibg="..palette.base)
+      vim.cmd("hi NormalFloat guibg=" .. palette.base)
+      vim.cmd("hi FloatBorder guifg=" .. palette.rose .. " guibg=" .. palette.base)
 
       -- indent-blankline.nvim
       local indentColor = blend(palette.iris, palette.base, 0.05)
-      vim.cmd("hi IndentBlanklineChar guifg="..indentColor.." gui=nocombine")
+      vim.cmd("hi IndentBlanklineChar guifg=" .. indentColor .. " gui=nocombine")
 
       -- nvim-treesitter-context
-      vim.cmd("hi TreesitterContext guibg="..blend(palette.rose, palette.base, 0.1))
+      vim.cmd("hi TreesitterContext guibg=" .. blend(palette.rose, palette.base, 0.1))
     end
   }
 
@@ -213,7 +217,7 @@ require("packer").startup(function()
     "SirVer/ultisnips",
     requires = "honza/vim-snippets",
     config = function()
-      vim.g.UltiSnipsExpandTrigger='<c-u>'
+      vim.g.UltiSnipsExpandTrigger = '<c-u>'
       vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
       vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
       vim.g.UltiSnipsRemoveSelectModeMappings = 0
@@ -233,11 +237,18 @@ require("packer").startup(function()
     end
   }
 
+  use {
+    "brenoprata10/nvim-highlight-colors",
+    config = function()
+      require("nvim-highlight-colors").setup {}
+    end
+  }
+
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then
-    require('packer').sync()
+    require("packer").sync()
   end
 end)
 
 -- configure outside of packer to allow overriding
-vim.g.notes_directories = {'~/Nextcloud/Notes'}
+vim.g.notes_directories = { '~/Nextcloud/Notes' }
