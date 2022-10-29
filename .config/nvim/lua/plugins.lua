@@ -244,6 +244,18 @@ require("packer").startup(function()
     end
   }
 
+  use {
+    "petertriho/nvim-scrollbar",
+    config = function()
+      local palette = require("rose-pine.palette")
+      require("scrollbar").setup({
+        handle = {
+          color = palette.highlight_high,
+        }
+      })
+    end
+  }
+
   -- Automatically set up configuration after cloning packer.nvim
   if PackerBootstrap then
     require("packer").sync()
