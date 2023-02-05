@@ -29,8 +29,7 @@ require("packer").startup(function()
     "nvim-telescope/telescope.nvim",
     requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" },
     config = function()
-      local t = require("telescope")
-      t.setup {
+      require("telescope").setup {
         defaults = {
           layout_config = { horizontal = { prompt_position = "top" } },
           layout_strategy = "flex",

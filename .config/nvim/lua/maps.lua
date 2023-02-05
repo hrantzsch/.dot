@@ -5,8 +5,11 @@ local function map(key, cmd, mode, opts)
 end
 
 local nmap = map
+
 local function vmap(key, cmd) map(key, cmd, "v") end
+
 local function tmap(key, cmd) map(key, cmd, "t") end
+
 local function imap(key, cmd) map(key, cmd, "i") end
 
 -- set <leader>
@@ -75,7 +78,8 @@ local function prose_mode()
 end
 
 
-local wk_mappings = {
+---@format disable-next
+local wk_nmaps = {
   ["<leader>"] = {
     c = {
       name = "Config",
@@ -84,78 +88,73 @@ local wk_mappings = {
       u = {"<cmd>PackerUpdate<cr>",                                   "Run PackerUpdate"},
     },
 
-     g = {
+    g = {
       name = "Git",
-      b = {"<cmd>Telescope git_branches<cr>",                         "Checkout Branch"},
-      C = {"<cmd>Telescope git_bcommits<cr>",                         "Checkout Commit(for current file)"},
-      c = {"<cmd>Telescope git_commits<cr>",                          "Checkout Commit"},
-      j = {"<cmd>lua require 'gitsigns'.next_hunk()<cr>",             "Next Hunk"},
-      k = {"<cmd>lua require 'gitsigns'.prev_hunk()<cr>",             "Prev Hunk"},
-      L = {"<cmd>lua require'gitsigns'.blame_line{full=true}<CR>",    "Full Blame"},
-      l = {"<cmd>lua require 'gitsigns'.blame_line()<cr>",            "Blame"},
-      o = {"<cmd>Telescope git_status<cr>",                           "Open Changed File"},
-      p = {"<cmd>lua require 'gitsigns'.preview_hunk()<cr>",          "Preview Hunk"},
-      R = {"<cmd>lua require 'gitsigns'.reset_buffer()<cr>",          "Reset Buffer"},
-      r = {"<cmd>lua require 'gitsigns'.reset_hunk()<cr>",            "Reset Hunk"},
-      S = {"<cmd>lua require 'gitsigns'.stage_buffer()<cr>",          "Stage Buffer"},
-      s = {"<cmd>lua require 'gitsigns'.stage_hunk()<cr>",            "Stage Hunk"},
-      u = {"<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",       "Undo Stage Hunk"},
+      b = { "<cmd>Telescope git_branches<cr>",                        "Checkout Branch" },
+      C = { "<cmd>Telescope git_bcommits<cr>",                        "Checkout Commit(for current file)" },
+      c = { "<cmd>Telescope git_commits<cr>",                         "Checkout Commit" },
+      o = { "<cmd>Telescope git_status<cr>",                          "Open Changed File" },
+
+      k = { "<cmd>Gitsigns prev_hunk<cr>",                            "Prev Hunk" },
+      j = { "<cmd>Gitsigns next_hunk<cr>",                            "Next Hunk" },
+      l = { "<cmd>Gitsigns blame_line<cr>",                           "Blame" },
+      L = { "<cmd>lua require 'gitsigns'.blame_line{full=true}<cr>",  "Full Blame" },
+      p = { "<cmd>Gitsigns preview_hunk<cr>",                         "Preview Hunk" },
+      r = { "<cmd>Gitsigns reset_hunk<cr>",                           "Reset Hunk" },
+      R = { "<cmd>Gitsigns reset_buffer<cr>",                         "Reset Buffer" },
+      s = { "<cmd>Gitsigns stage_hunk<cr>",                           "Stage Hunk" },
+      S = { "<cmd>Gitsigns stage_buffer<cr>",                         "Stage Buffer" },
+      u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                      "Undo Stage Hunk" },
+
+      h = { gh_browse,                                                "Open File on GitHub" },
     },
 
     l = {
       name = "LSP",
-      a = {"<cmd>lua vim.lsp.buf.code_action()<cr>",                  "Code Action"},
-      A = {"<cmd>lua vim.lsp.buf.range_code_action()<cr>",            "Range Action"},
-      d = {"<cmd>Telescope diagnostics<cr>",                          "Diagnostics" },
-      f = {"<cmd>lua vim.lsp.buf.formatting()<cr>",                   "Format"},
-      i = {"<cmd>LspInfo<cr>",                                        "Info"},
-      q = {"<cmd>Telescope quickfix<cr>",                             "Quickfix"},
-      r = {"<cmd>lua vim.lsp.buf.rename()<cr>",                       "Rename"},
-      S = {"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",        "Workspace Symbols"},
-      s = {"<cmd>SymbolsOutlineOpen<cr>",                             "Symbols Outline"},
-      t = {toggle_lsp,                                                "Toggle LSP"},
-      u = {"<cmd>Telescope lsp_references<cr>",                       "References"},
+      a = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                 "Code Action" },
+      A = { "<cmd>lua vim.lsp.buf.range_code_action()<cr>",           "Range Action" },
+      d = { "<cmd>Telescope diagnostics<cr>",                         "Diagnostics" },
+      f = { "<cmd>lua vim.lsp.buf.formatting()<cr>",                  "Format" },
+      i = { "<cmd>LspInfo<cr>",                                       "Info" },
+      q = { "<cmd>Telescope quickfix<cr>",                            "Quickfix" },
+      r = { "<cmd>lua vim.lsp.buf.rename()<cr>",                      "Rename" },
+      S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",       "Workspace Symbols" },
+      s = { "<cmd>SymbolsOutlineOpen<cr>",                            "Symbols Outline" },
+      t = { toggle_lsp,                                               "Toggle LSP" },
+      u = { "<cmd>Telescope lsp_references<cr>",                      "References" },
     },
 
     t = {
       name = "Telescope",
-      t = {"<cmd>Telescope resume<cr>",                               "Resume"},
-      g = {"<cmd>Telescope live_grep<cr>",                            "Live Grep"},
-      a = {"<cmd>Telescope grep_string<cr>",                          "Grep String"},
-      y = {"<cmd>Telescope neoclip<cr>",                              "Neoclip"},
+      t = { "<cmd>Telescope resume<cr>",                              "Resume" },
+      g = { "<cmd>Telescope live_grep<cr>",                           "Live Grep" },
+      a = { "<cmd>Telescope grep_string<cr>",                         "Grep String" },
+      y = { "<cmd>Telescope neoclip<cr>",                             "Neoclip" },
     },
 
-    ["<leader>"] = {"<cmd>Telescope buffers<cr>",                     "Choose Buffer"},
-    o            = {"<cmd>Telescope find_files<cr>",                  "Open File"},
-    j            = {"<cmd>Telescope jumplist<cr>",                    "Jumplist"},
+    ["<leader>"] = { "<cmd>Telescope buffers<cr>",                    "Choose Buffer" },
+    o            = { "<cmd>Telescope find_files<cr>",                 "Open File" },
+    j            = { "<cmd>Telescope jumplist<cr>",                   "Jumplist" },
+    b            = { "<cmd>BufferPick<cr>",                           "Pick Buffer" },
+    d            = { "<cmd>BufferClose<cr>",                          "Close Buffer" },
     -- d            = {"<cmd>bp|bd #<cr>",                               "Close Buffer"},
-    b            = {"<cmd>BufferPick<cr>",                            "Pick Buffer"},
-    d            = {"<cmd>BufferClose<cr>",                           "Close Buffer"},
-    p            = {prose_mode,                                       "Toggle Prose Mode"},
-    w            = {toggle_wrap,                                      "Toggle Wrap"},
-    q            = {"<cmd>cclose<cr>",                                "Close Quickfix"},
+    p            = { prose_mode,                                      "Toggle Prose Mode" },
+    w            = { toggle_wrap,                                     "Toggle Wrap" },
+    q            = { "<cmd>cclose<cr>",                               "Close Quickfix" },
   },
 
   -- shortcuts
-  ["[c"]    = {"<cmd>lua require 'gitsigns'.prev_hunk()<cr>",         "Prev Git Hunk"},
-  ["]c"]    = {"<cmd>lua require 'gitsigns'.next_hunk()<cr>",         "Next Git Hunk"},
-  ["<c-k>"] = {"<cmd>lua vim.lsp.buf.hover()<cr>",                    "Hover Doc"},
-  ["<c-]>"] = {"<cmd>lua vim.lsp.buf.definition()<cr>",               "Go to Definition"},
-  ["[d"]    = {"<cmd>lua vim.diagnostic.goto_prev()<cr>",             "Prev Diagnostic"},
-  ["]d"]    = {"<cmd>lua vim.diagnostic.goto_next()<cr>",             "Next Diagnostic"},
-  ["[b"]    = {"<cmd>BufferPrevious<cr>",                             "Prev Buffer"},
-  ["]b"]    = {"<cmd>BufferNext<cr>",                                 "Next Buffer"},
-  ["[q"]    = {"<cmd>cprevious<cr>",                                  "Prev Quickfix Entry"},
-  ["]q"]    = {"<cmd>cnext<cr>",                                      "Next Quickfix Entry"},
-  ["<c-p>"] = {"<cmd>Telescope neoclip<cr>",                          "Neoclip"},
+  ["[c"]    = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>",        "Prev Git Hunk" },
+  ["]c"]    = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>",        "Next Git Hunk" },
+  ["<c-k>"] = { "<cmd>lua vim.lsp.buf.hover()<cr>",                   "Hover Doc" },
+  ["<c-]>"] = { "<cmd>lua vim.lsp.buf.definition()<cr>",              "Go to Definition" },
+  ["[d"]    = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",            "Prev Diagnostic" },
+  ["]d"]    = { "<cmd>lua vim.diagnostic.goto_next()<cr>",            "Next Diagnostic" },
+  ["[b"]    = { "<cmd>BufferPrevious<cr>",                            "Prev Buffer" },
+  ["]b"]    = { "<cmd>BufferNext<cr>",                                "Next Buffer" },
+  ["[q"]    = { "<cmd>cprevious<cr>",                                 "Prev Quickfix Entry" },
+  ["]q"]    = { "<cmd>cnext<cr>",                                     "Next Quickfix Entry" },
+  ["<c-p>"] = { "<cmd>Telescope neoclip<cr>",                         "Neoclip" },
 }
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = false -- use `nowait` when creating keymaps
-}
-
-require'which-key'.register(wk_mappings, opts)
+require 'which-key'.register(wk_nmaps)
