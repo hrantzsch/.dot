@@ -1,6 +1,6 @@
 # -- oh-my-zsh --
 
-ZSH=/usr/share/oh-my-zsh/
+ZSH=/usr/share/oh-my-zsh
 
 ZSH_THEME="robbyrussell"  # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
@@ -38,6 +38,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 alias o=xdg-open
 alias v=nvim
+
+alias zshrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
 
 # -- oh-my-zsh --
 
