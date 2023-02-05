@@ -66,14 +66,9 @@ M.config = function()
     flags = { debounce_text_changes = 200, }
   }
 
-  lsp_config.rls.setup {
-    settings = {
-      rust = {
-        unstable_features = true,
-        build_on_save = true,
-        all_features = true,
-      },
-    },
+  lsp_config.rust_analyzer.setup {
+    -- assuming `rustup component add --toolchain nightly rust-analyzer`
+    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
     on_attach = common_on_attach,
     flags = { debounce_text_changes = 200, }
   }

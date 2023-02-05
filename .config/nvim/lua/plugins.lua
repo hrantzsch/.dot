@@ -205,36 +205,36 @@ require("packer").startup(function()
       require("lualine").setup {
         options = {
           theme = 'rose-pine-alt',
-          section_separators = { left = '', right = ' ' },
-          component_separators = { left = '', right = '' }
-        }
+          component_separators = { left = ' ', right = ' ' }
+        },
+        sections = {
+          lualine_a = { 'branch' },
+          lualine_b = { { 'filename', path = 1 } },
+          lualine_c = { 'diagnostics' },
+          lualine_x = { 'lsp_progress', 'filetype', 'encoding', 'fileformat' },
+          lualine_y = { 'location' },
+          lualine_z = { 'mode' }
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = { 'location' },
+          lualine_y = {},
+          lualine_z = {}
+        },
       }
     end
   }
 
   use {
-    "SirVer/ultisnips",
-    requires = "honza/vim-snippets",
-    config = function()
-      vim.g.UltiSnipsExpandTrigger = '<c-u>'
-      vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    end
+    'arkav/lualine-lsp-progress',
+    requires = { "nvim-lualine/lualine.nvim" }
   }
 
   use "purescript-contrib/purescript-vim"
 
   use "gabrielpoca/replacer.nvim" -- editable quickfix window
-
-  use {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      vim.g.symbols_outline = {
-        position = 'left',
-      }
-    end
-  }
 
   use {
     "brenoprata10/nvim-highlight-colors",
@@ -252,6 +252,16 @@ require("packer").startup(function()
           color = palette.highlight_high,
         }
       })
+    end
+  }
+
+  use {
+    "L3MON4D3/LuaSnip",
+    tag = "v1.*",
+    requires = "honza/vim-snippets",
+    config = function()
+      require("luasnip").filetype_extend("all", { "_" }) -- honza/vim-snippets global snippets
+      require("luasnip.loaders.from_snipmate").lazy_load()
     end
   }
 

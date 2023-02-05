@@ -53,6 +53,8 @@ nmap('<A-p>', ':bN<CR>')
 
 nmap('<A-b>', '<C-^>')
 
+imap('<c-u>', '<Plug>luasnip-expand-or-jump')
+
 local function toggle_lsp()
   if next(vim.lsp.get_active_clients()) == nil then
     vim.cmd "LspStart"
@@ -76,7 +78,6 @@ local function prose_mode()
     print('Prose mode enabled')
   end
 end
-
 
 ---@format disable-next
 local wk_nmaps = {
@@ -105,8 +106,6 @@ local wk_nmaps = {
       s = { "<cmd>Gitsigns stage_hunk<cr>",                           "Stage Hunk" },
       S = { "<cmd>Gitsigns stage_buffer<cr>",                         "Stage Buffer" },
       u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                      "Undo Stage Hunk" },
-
-      h = { gh_browse,                                                "Open File on GitHub" },
     },
 
     l = {
