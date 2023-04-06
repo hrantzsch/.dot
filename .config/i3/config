@@ -139,6 +139,8 @@ for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pamac-updater"] floating enable
 for_window [class="Pavucontrol"] floating enable
+# steam df
+for_window [class="steam_app_975370"] floating enable
 
 floating_modifier $mod
 

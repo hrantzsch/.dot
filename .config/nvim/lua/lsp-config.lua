@@ -73,7 +73,7 @@ M.config = function()
     flags = { debounce_text_changes = 200, }
   }
 
-  lsp_config.sumneko_lua.setup {
+  lsp_config.lua_ls.setup {
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT' },
