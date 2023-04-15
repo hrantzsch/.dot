@@ -45,7 +45,7 @@ M.config = function()
   setup_ui()
 
   -- servers without custom settings
-  local servers = { 'clangd', 'hls', 'purescriptls' }
+  local servers = { 'clangd', 'hls', 'purescriptls', 'pylsp' }
   for _, lsp in ipairs(servers) do
     lsp_config[lsp].setup {
       on_attach = common_on_attach,

@@ -1,0 +1,2 @@
+#!/bin/bash
+acpi | $(dirname $0)/bat.py

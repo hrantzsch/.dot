@@ -50,5 +50,7 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+eval "$(zoxide init zsh)"
+
 # disable shared history
 unsetopt share_history
