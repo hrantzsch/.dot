@@ -57,7 +57,7 @@ if __name__ == "__main__":
     color = (
         Colors[State.Charging][1]
         if any(b.status == Battery.Status.Charging for b in batteries)
-        else next(color[1] for s in State if (color := Colors[s])[0] > percentage)
+        else next(c[1] for s in State if (c := Colors[s])[0] >= percentage)
     )
     print(
         f"<span color='{color}' font='FontAwesome'>"

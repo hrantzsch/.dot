@@ -36,8 +36,8 @@ require("packer").startup(function()
           sorting_strategy = "ascending",
           set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
           preview = {
-            filesize_limit = 2, -- MB
-            timeout = 500, -- ms
+            filesize_limit = 2,                      -- MB
+            timeout = 500,                           -- ms
             msg_bg_fillchar = " ",
           },
           mappings = {
@@ -263,6 +263,18 @@ require("packer").startup(function()
       require("luasnip").filetype_extend("all", { "_" }) -- honza/vim-snippets global snippets
       require("luasnip.loaders.from_snipmate").lazy_load()
     end
+  }
+
+  use {
+    "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup()
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
   }
 
   -- Automatically set up configuration after cloning packer.nvim
