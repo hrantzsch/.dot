@@ -39,6 +39,17 @@ require("packer").startup(function()
             filesize_limit = 2,                      -- MB
             timeout = 500,                           -- ms
             msg_bg_fillchar = " ",
+            treesitter = false,
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--max-columns", "200"
           },
           mappings = {
             n = {
@@ -112,6 +123,11 @@ require("packer").startup(function()
     requires = "nvim-treesitter/nvim-treesitter"
   }
 
+  use {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    requires = "nvim-treesitter/nvim-treesitter"
+  }
+
   use "folke/which-key.nvim"
 
   use {
@@ -124,9 +140,15 @@ require("packer").startup(function()
     end
   }
 
-  use "tpope/vim-commentary" -- TODO use  numToStr/Comment.nvim instead
   use "tpope/vim-repeat"
   use "tpope/vim-surround"
+
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  }
 
   use {
     "xolox/vim-notes",
@@ -170,31 +192,34 @@ require("packer").startup(function()
     config = function()
       require("rose-pine").setup {
         dark_variant = "moon",
-        disable_background = false,
+        disable_background = true,
         dim_nc_background = true,
       }
       vim.cmd("colorscheme rose-pine")
 
+      local hi = function(highlight, guifg, guibg, gui)
+        vim.cmd("hi " .. highlight .. " gui=" .. (gui or "NONE") ..
+          " guifg=" .. (guifg or "guifg") .. " guibg=" .. (guibg or "guibg")
+        )
+      end
+
       local palette = require("rose-pine.palette")
-      local blend = require("rose-pine.util").blend
-      local searchbg = blend(palette.love, palette.base, 0.8)
-      vim.cmd("hi Search guibg=" .. searchbg .. " guifg=" .. palette.base)
+      local blend = function(fg, alpha)
+        return require("rose-pine.util").blend(fg, palette.base, alpha)
+      end
 
-      vim.cmd("hi IncSearch gui=bold guifg=" .. palette.love .. " guibg=" .. palette.base)
-
-      -- Symbols Outline
-      vim.cmd("hi FocusedSymbol guibg=" .. palette.rose .. " guifg=" .. palette.base)
+      hi("Search", palette.base, blend(palette.love, 0.8))
+      hi("IncSearch", palette.love, palette.base, "bold")
 
       -- floating windows (lspconfig)
-      vim.cmd("hi NormalFloat guibg=" .. palette.base)
-      vim.cmd("hi FloatBorder guifg=" .. palette.rose .. " guibg=" .. palette.base)
+      hi("NormalFloat", nil, palette.base)
+      hi("FloatBorder", palette.rose, palette.base)
 
       -- indent-blankline.nvim
-      local indentColor = blend(palette.iris, palette.base, 0.05)
-      vim.cmd("hi IndentBlanklineChar guifg=" .. indentColor .. " gui=nocombine")
+      hi("IndentBlanklineChar", blend(palette.iris, 0.05), nil, "nocombine")
 
       -- nvim-treesitter-context
-      vim.cmd("hi TreesitterContext guibg=" .. blend(palette.rose, palette.base, 0.1))
+      hi("TreesitterContext", nil, blend(palette.rose, 0.1))
     end
   }
 
@@ -275,6 +300,11 @@ require("packer").startup(function()
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
+  }
+
+  use {
+    "cshuaimin/ssr.nvim",
+    module = "ssr",
   }
 
   -- Automatically set up configuration after cloning packer.nvim

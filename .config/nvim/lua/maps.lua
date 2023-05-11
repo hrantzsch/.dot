@@ -108,6 +108,11 @@ local wk_nmaps = {
       u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                      "Undo Stage Hunk" },
     },
 
+    i = {
+      name = "ChatGPT",
+      i = { "<cmd>ChatGPT<cr>",                                       "Open Chat" },
+    },
+
     l = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>",                 "Code Action" },
@@ -118,7 +123,6 @@ local wk_nmaps = {
       q = { "<cmd>Telescope quickfix<cr>",                            "Quickfix" },
       r = { "<cmd>lua vim.lsp.buf.rename()<cr>",                      "Rename" },
       S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",       "Workspace Symbols" },
-      s = { "<cmd>SymbolsOutlineOpen<cr>",                            "Symbols Outline" },
       t = { toggle_lsp,                                               "Toggle LSP" },
       u = { "<cmd>Telescope lsp_references<cr>",                      "References" },
     },
@@ -140,6 +144,12 @@ local wk_nmaps = {
     p            = { prose_mode,                                      "Toggle Prose Mode" },
     w            = { toggle_wrap,                                     "Toggle Wrap" },
     q            = { "<cmd>cclose<cr>",                               "Close Quickfix" },
+
+    s = {
+      name = "Search and Replace",
+      r = { "<cmd>lua require('ssr').open()<cr>", "ssr" },
+      q = { "<cmd>lua require('replacer').run()<cr>", "in quickfix" },
+    },
   },
 
   -- shortcuts
@@ -154,6 +164,20 @@ local wk_nmaps = {
   ["[q"]    = { "<cmd>cprevious<cr>",                                 "Prev Quickfix Entry" },
   ["]q"]    = { "<cmd>cnext<cr>",                                     "Next Quickfix Entry" },
   ["<c-p>"] = { "<cmd>Telescope neoclip<cr>",                         "Neoclip" },
+
+  ["<f12>"] = {"<cmd>10split | terminal f12 %<cr>",                   "f12" },
 }
 
-require 'which-key'.register(wk_nmaps)
+local wk = require('which-key')
+wk.register(wk_nmaps)
+
+wk.register(
+  {
+    i = {
+      name = "ChatGPT",
+      e = { function() require("chatgpt").edit_with_instructions() end, "Edit with instructions", },
+      d = { "<cmd>ChatGPTRun docstring<cr>",                            "Add docstring", },
+    },
+  },
+  { prefix = "<leader>", mode = "v", }
+)
