@@ -108,10 +108,7 @@ local wk_nmaps = {
       u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                      "Undo Stage Hunk" },
     },
 
-    i = {
-      name = "ChatGPT",
-      i = { "<cmd>ChatGPT<cr>",                                       "Open Chat" },
-    },
+    i = { "<cmd>ChatGPT<cr>",                                       "Open Chat" },
 
     l = {
       name = "LSP",
@@ -177,6 +174,10 @@ wk.register(
       name = "ChatGPT",
       e = { function() require("chatgpt").edit_with_instructions() end, "Edit with instructions", },
       d = { "<cmd>ChatGPTRun docstring<cr>",                            "Add docstring", },
+      f = { "<cmd>ChatGPTRun fix_bugs<cr>",                             "Fix bugs", },
+      t = { "<cmd>ChatGPTRun add_tests<cr>",                            "Add tests", },
+      i = { "<cmd>ChatGPTRun idiomatize<cr>",                           "Idiomatize", },
+      s = { "<cmd>ChatGPTRun shorten<cr>",                              "Shorten", },
     },
   },
   { prefix = "<leader>", mode = "v", }

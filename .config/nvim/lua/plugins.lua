@@ -293,7 +293,10 @@ require("packer").startup(function()
   use {
     "jackMort/ChatGPT.nvim",
     config = function()
-      require("chatgpt").setup()
+      require("chatgpt").setup({
+        actions_paths = {"chatgpt_actions.json"},
+        show_quickfixes_cmd = "copen",
+      })
     end,
     requires = {
       "MunifTanjim/nui.nvim",
