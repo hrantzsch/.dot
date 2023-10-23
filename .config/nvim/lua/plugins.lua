@@ -179,9 +179,9 @@ require("packer").startup(function()
   use {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = false,
+      require("ibl").setup {
+        indent = { highlight = { "IblIndent", "NonText" } },
+        scope = { enabled = false },
       }
     end
   }
@@ -189,10 +189,12 @@ require("packer").startup(function()
   use {
     "rose-pine/neovim",
     as = "rose-pine",
+    version = '1.2.0',
     config = function()
       require("rose-pine").setup {
-        dark_variant = "moon",
-        disable_background = true,
+        variant = "auto",
+        -- dark_variant = "moon",
+        disable_background = false,
         dim_nc_background = true,
       }
       vim.cmd("colorscheme rose-pine")
@@ -216,7 +218,8 @@ require("packer").startup(function()
       hi("FloatBorder", palette.rose, palette.base)
 
       -- indent-blankline.nvim
-      hi("IndentBlanklineChar", blend(palette.iris, 0.05), nil, "nocombine")
+      -- TODO: not working
+      hi("IblIndent", blend(palette.iris, 0.05), nil, "nocombine")
 
       -- nvim-treesitter-context
       hi("TreesitterContext", nil, blend(palette.rose, 0.1))
