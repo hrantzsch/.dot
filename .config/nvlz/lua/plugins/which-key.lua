@@ -69,12 +69,11 @@ local normal_maps = {
 
     g = {
       name = "Git",
-      b = { "<cmd>Telescope git_branches<cr>",  "Checkout Branch" },
-      C = { "<cmd>Telescope git_bcommits<cr>",  "Checkout Commit (for current file)" },
-      c = { "<cmd>Telescope git_commits<cr>",   "Checkout Commit" },
       o = { "<cmd>Telescope git_status<cr>",    "Open Changed File" },
 
+      b = { "<cmd>Gitsigns toggle_current_line_blame<cr>",             "Toggle line blame" },
       d = { "<cmd>Gitsigns diffthis<cr>",                              "Show Diff" },
+      h = { "<cmd>Gitsigns toggle_linehl<cr>",                         "Toggle line highlighting" },
       j = { "<cmd>Gitsigns next_hunk<cr>",                             "Next Hunk" },
       k = { "<cmd>Gitsigns prev_hunk<cr>",                             "Prev Hunk" },
       l = { "<cmd>Gitsigns blame_line<cr>",                            "Blame" },
@@ -100,11 +99,16 @@ local normal_maps = {
 
     t = {
       name = "Telescope",
-      g = { "<cmd>Telescope live_grep<cr>",    "Live Grep" },
-      a = { "<cmd>Telescope grep_string<cr>",  "Grep String" },
+      a = { "<cmd>Telescope grep_string<cr>",   "Grep String" },
+      b = { "<cmd>Telescope git_branches<cr>",  "Checkout Branch" },
+      C = { "<cmd>Telescope git_bcommits<cr>",  "Checkout Commit (for current file)" },
+      c = { "<cmd>Telescope git_commits<cr>",   "Checkout Commit" },
+      g = { "<cmd>Telescope live_grep<cr>",     "Live Grep" },
     },
 
   },
+  -- labels
+  ["<leader>v"] = "Visual Multi",
 }
 
 ---@format disable-next
@@ -116,6 +120,8 @@ local insert_maps = {
 ---@format disable-next
 local visual_maps = {
   ["<c-c>"] = { [["+y]], "Copy to system clipboard" },
+  -- labels
+  ["<leader>v"] = "Visual Multi",
 }
 
 return {

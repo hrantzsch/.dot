@@ -56,17 +56,25 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  require("plugins.rosepine"),
-  require("plugins.lsp"),
-  require("plugins.telescope"),
-  require("plugins.treesitter"),
-  require("plugins.lualine"),
-  require("plugins.which-key"),
-  require("plugins.bufferline"),
-  require("plugins.gitsigns"),
+    require("plugins.rosepine"),
+    require("plugins.lsp"),
+    require("plugins.telescope"),
+    require("plugins.treesitter"),
+    require("plugins.lualine"),
+    require("plugins.which-key"),
+    require("plugins.bufferline"),
+    require("plugins.gitsigns"),
+    require("plugins.illuminate"),
+    require("plugins.visual-multi"),
 
-  { 'numToStr/Comment.nvim', config = true },
+    { 'numToStr/Comment.nvim', config = true },
 
-  { "tpope/vim-repeat" },
-  { "tpope/vim-surround" },
-})
+    { "tpope/vim-repeat" },
+    { "tpope/vim-surround" },
+  },
+  {
+    install = {
+      missing = true,
+      colorscheme = { "rose-pine" },
+    },
+  })
