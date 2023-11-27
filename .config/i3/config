@@ -94,7 +94,7 @@ exec --no-startup-id xset r rate 200 30
 #
 
 # open $term in same directory -- requires https://github.com/schischi/xcwd
-bindsym $mod+Return exec $term $term_cwd $(xcwd)
+bindsym $mod+Return exec $term $term_cwd "$(xcwd)"
 
 bindsym $mod+F1     exec thunderbird
 bindsym $mod+F2     exec firefox
@@ -114,11 +114,12 @@ bindsym $mod+Shift+e         exec ~/.config/i3/scripts/powermenu
 bindsym $mod+p               exec rofi-pass
 bindsym $mod+i               exec rofimoji
 bindsym $mod+v               exec EDITOR=$edit $term $term_cmd vimclip
-bindsym $mod+n               exec $term $term_cmd $edit -c RecentNotes
-bindsym $mod+m               exec $term $term_cmd $edit "$HOME/Nextcloud/Notes/personal-notes.md"
 bindsym Control+Shift+Escape exec $term $term_cmd htop
 
-bindsym $mod+z exec $term $term_cmd --title zettelkasten -- "$HOME/bin/zt"
+set $notes_home "$HOME/Nextcloud/Notes"
+bindsym $mod+n       exec $term $term_cmd $edit -c "lcd "$notes_home
+bindsym $mod+m       exec $term $term_cmd $edit -c "lcd "$notes_home $notes_home"/personal-notes.md"
+bindsym $mod+z       exec $term $term_cmd --title zettelkasten -- $notes_home"/Zettel/new_zettel.sh" $notes_home
 bindsym $mod+Shift+z exec $term $term_cmd --title zettelkasten -- "$HOME/bin/lzt"
 
 bindsym XF86MonBrightnessUp   exec xbacklight +20
