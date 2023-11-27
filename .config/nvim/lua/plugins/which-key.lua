@@ -74,6 +74,7 @@ local normal_maps = {
       b = { "<cmd>Gitsigns toggle_current_line_blame<cr>",             "Toggle line blame" },
       d = { "<cmd>Gitsigns diffthis<cr>",                              "Show Diff" },
       h = { "<cmd>Gitsigns toggle_linehl<cr>",                         "Toggle line highlighting" },
+      H = { require("custom.blame-heat").GitBlameHeat,                 "Git blame heat" },
       j = { "<cmd>Gitsigns next_hunk<cr>",                             "Next Hunk" },
       k = { "<cmd>Gitsigns prev_hunk<cr>",                             "Prev Hunk" },
       l = { "<cmd>Gitsigns blame_line<cr>",                            "Blame" },
