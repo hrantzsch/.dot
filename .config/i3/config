@@ -43,15 +43,16 @@ exec --no-startup-id feh --bg-center ~/Pictures/wallpaper
 set $darkgray   #26233a
 set $gray       #6e6a86
 set $red        #eb6f92
-set $green      #31748f
+set $blue       #31748f
 set $yellow     #f6c177
-set $blue       #9ccfd8
+set $cyan       #9ccfd8
 set $magenta    #c4a7e7
-set $cyan       #ebbcba
+set $rose       #ebbcba
 set $white      #e0def4
 set $bg         #26233a
 
-client.focused          $blue     $blue     $darkgray $cyan     $gray
+# class                 border    backgr.   text      indicator child_border
+client.focused          $rose     $rose     $darkgray $rose     $blue
 client.focused_inactive $darkgray $darkgray $yellow   $darkgray $darkgray
 client.unfocused        $darkgray $darkgray $yellow   $darkgray $darkgray
 client.urgent           $magenta  $magenta  $bg       $darkgray $magenta
@@ -75,8 +76,8 @@ bar {
         focused_workspace   $gray     $darkgray   $magenta
         active_workspace    $bg       $darkgray   $magenta
         inactive_workspace  $bg       $darkgray   $gray
-        urgent_workspace    $magenta  $darkgray   $cyan
-        binding_mode        $magenta  $darkgray   $cyan
+        urgent_workspace    $magenta  $darkgray   $rose
+        binding_mode        $magenta  $darkgray   $rose
     }
 }
 
