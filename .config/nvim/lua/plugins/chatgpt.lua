@@ -1,6 +1,6 @@
 return {
   "jackMort/ChatGPT.nvim",
-  event = "VeryLazy",
+  lazy = true,
   opts = {
     api_key_cmd = "pass show openai_api_key",
   },

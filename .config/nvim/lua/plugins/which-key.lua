@@ -23,8 +23,8 @@ local function toggle_prose_mode()
 end
 
 local function word_under_cursor()
-    vim.fn.setreg('/', '\\<' ..  vim.fn.expand('<cword>') .. '\\>')
-    vim.cmd('set hlsearch')  -- force highlight update
+  vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
+  vim.cmd('set hlsearch')   -- force highlight update
 end
 
 ---@format disable-next
@@ -60,15 +60,13 @@ local normal_maps = {
     w = { toggle_wrap,                             "Toggle Wrap" },
     y = { [[:let @+=expand("%:p")<cr>]],           "Yank file name" },
 
-    c = {
-      name = "Config",
+    c = { name = "Config",
       c = { "<cmd>Lazy<cr>",           "Lazy menu" },
       e = { "<cmd>edit $MYVIMRC<cr>",  "Open Config" },
       u = { "<cmd>Lazy update<cr>",    "Lazy update" },
     },
 
-    g = {
-      name = "Git",
+    g = { name = "Git",
       o = { "<cmd>Telescope git_status<cr>",    "Open Changed File" },
 
       b = { "<cmd>Gitsigns toggle_current_line_blame<cr>",             "Toggle line blame" },
@@ -87,8 +85,9 @@ local normal_maps = {
       u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                       "Undo Stage Hunk" },
     },
 
-    l = {
-      name = "LSP",
+    i = { function() require("chatgpt").openChat() end,          "ChatGPT", },
+
+    l = { name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>",            "Code Action" },
       d = { "<cmd>Telescope diagnostics<cr>",                    "Diagnostics" },
       q = { "<cmd>Telescope quickfix<cr>",                       "Quickfix" },
@@ -98,8 +97,7 @@ local normal_maps = {
       u = { "<cmd>Telescope lsp_references<cr>",                 "References" },
     },
 
-    t = {
-      name = "Telescope",
+    t = { name = "Telescope",
       a = { "<cmd>Telescope grep_string<cr>",   "Grep String" },
       b = { "<cmd>Telescope git_branches<cr>",  "Checkout Branch" },
       C = { "<cmd>Telescope git_bcommits<cr>",  "Checkout Commit (for current file)" },
@@ -121,6 +119,14 @@ local insert_maps = {
 ---@format disable-next
 local visual_maps = {
   ["<c-c>"] = { [["+y]], "Copy to system clipboard" },
+
+  ["<leader>"] = {
+
+    i = { name = "ChatGPT",
+      e = { function() require("chatgpt").edit_with_instructions() end, "Edit with instructions", },
+    },
+
+  },
   -- labels
   ["<leader>v"] = "Visual Multi",
 }
