@@ -3,9 +3,13 @@ return {
   dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig", },
   config = function()
     require("mason").setup()
-    require("mason-lspconfig").setup { ensure_installed = { "lua_ls", "pylsp", } }
+    require("mason-lspconfig").setup {
+      ensure_installed = { "lua_ls", "pylsp", },
+      automatic_installation = true,
+    }
+    local lspconf = require("lspconfig")
 
-    require("lspconfig").lua_ls.setup {
+    lspconf.lua_ls.setup {
       settings = {
         Lua = {
           addonManager = { enable = false, },
@@ -14,7 +18,7 @@ return {
       },
     }
 
-    require("lspconfig").pylsp.setup {
+    lspconf.pylsp.setup {
       settings = {
         pylsp = {
           plugins = {
@@ -31,5 +35,7 @@ return {
         },
       },
     }
+
+    lspconf.rust_analyzer.setup {}
   end
 }
