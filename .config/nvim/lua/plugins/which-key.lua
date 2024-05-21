@@ -31,7 +31,6 @@ end
 local normal_maps = {
   ["<cr>"]  = { word_under_cursor,                               "Search word under cursor"},
   ["<c-c>"] = { [["+yy]],                                        "Copy to system clipboard" },
-  ["<c-k>"] = { "<cmd>lua vim.lsp.buf.hover()<cr>",              "Hover Doc" },
   ["<c-]>"] = { "<cmd>lua vim.lsp.buf.definition()<cr>",         "Go to Definition" },
   ["<c-p>"] = { "<cmd>Telescope commands<cr>",                   "Commands" },
 
@@ -39,8 +38,6 @@ local normal_maps = {
   ["]b"]    = { "<cmd>BufferLineCycleNext<cr>",                  "Next Buffer" },
   ["[c"]    = { "<cmd>lua require('gitsigns').prev_hunk()<cr>",  "Prev Git Hunk" },
   ["]c"]    = { "<cmd>lua require('gitsigns').next_hunk()<cr>",  "Next Git Hunk" },
-  ["[d"]    = { "<cmd>lua vim.diagnostic.goto_prev()<cr>",       "Prev Diagnostic" },
-  ["]d"]    = { "<cmd>lua vim.diagnostic.goto_next()<cr>",       "Next Diagnostic" },
   ["[q"]    = { "<cmd>cprevious<cr>",                            "Prev Quickfix Entry" },
   ["]q"]    = { "<cmd>cnext<cr>",                                "Next Quickfix Entry" },
 
@@ -85,8 +82,6 @@ local normal_maps = {
       u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                       "Undo Stage Hunk" },
     },
 
-    i = { function() require("chatgpt").openChat() end,          "ChatGPT", },
-
     l = { name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>",            "Code Action" },
       d = { "<cmd>Telescope diagnostics<cr>",                    "Diagnostics" },
@@ -120,13 +115,6 @@ local insert_maps = {
 local visual_maps = {
   ["<c-c>"] = { [["+y]], "Copy to system clipboard" },
 
-  ["<leader>"] = {
-
-    i = { name = "ChatGPT",
-      e = { function() require("chatgpt").edit_with_instructions() end, "Edit with instructions", },
-    },
-
-  },
   -- labels
   ["<leader>v"] = "Visual Multi",
 }

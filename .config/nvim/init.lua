@@ -18,6 +18,8 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.incsearch = true
 
+vim.o.spelllang = "en_us,de"
+
 -- trailing spaces
 vim.o.list = true
 vim.o.listchars = "tab:»·,trail:·"            -- show tabs and trailing spaces
@@ -65,9 +67,8 @@ require("lazy").setup({
     require("plugins.bufferline"),
     require("plugins.illuminate"),
     require("plugins.visual-multi"),
-    require("plugins.chatgpt"),
+    require("plugins.ghcopilot"),
 
-    { 'numToStr/Comment.nvim',              config = true },
     { "brenoprata10/nvim-highlight-colors", opts = { enable_named_colors = false, }, },
     { 'lewis6991/gitsigns.nvim',            opts = { current_line_blame_opts = { delay = 50 }, } },
 

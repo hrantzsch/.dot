@@ -24,6 +24,7 @@ return {
           plugins = {
             mccabe = { enabled = false, },
             pydocstyle = { enabled = false, },
+            pycodestyle = { enabled = true, maxLineLength = 100 },
             pylint = { enabled = true, },
             -- 3rd party plugins
             -- manually run :PylspInstall pylsp-mypy pyls-isort python-lsp-black python-lsp-ruff
