@@ -8,14 +8,10 @@
 [core]
     editor = nvim
 [diff]
-    tool = nvimdiff
-[difftool "vimdiff"]
-    path = nvim
+    tool = nvim -d
 [merge]
-    tool = nvimdiff
+    tool = nvim -d
     conflictstyle = diff3
-[mergetool]
-    path = nvim
 [init]
     defaultBranch = main
 [filter "lfs"]

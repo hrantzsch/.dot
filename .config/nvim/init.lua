@@ -22,7 +22,7 @@ vim.o.spelllang = "en_us,de"
 
 -- trailing spaces
 vim.o.list = true
-vim.o.listchars = "tab:»·,trail:·"            -- show tabs and trailing spaces
+vim.o.listchars = "tab:··,trail:·"            -- show tabs and trailing spaces
 vim.cmd "autocmd BufWritePre * %s/\\s\\+$//e" -- remove trailing tabs and spaces
 
 vim.o.joinspaces = false                      -- insert only one space after '.' when joining lines
@@ -40,7 +40,7 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
--- appearence
+-- appearance
 vim.o.termguicolors = true
 vim.o.background = [[dark]]
 
@@ -48,6 +48,14 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 vim.cmd([[autocmd TextYankPost * lua vim.highlight.on_yank {timeout = 250}]])
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.py" },
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

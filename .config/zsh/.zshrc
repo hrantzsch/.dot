@@ -27,14 +27,13 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#ebbcba,pointer:#ea9a97
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
-zstyle :omz:plugins:ssh-agent quiet yes
+# zstyle :omz:plugins:ssh-agent quiet yes
 
 # -- User configuration --
-
-# Path
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
+#
+# -- PATHs --
+#
+# -> put into $ZDOTDIR/.zprofile!
 
 alias o=xdg-open
 alias v=nvim
@@ -54,3 +53,7 @@ eval "$(zoxide init zsh)"
 
 # disable shared history
 unsetopt share_history
+
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent

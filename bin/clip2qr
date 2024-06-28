@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Display the content of the primary selection (clipboard) as a QR code.
-# Especially useful for URLs.
-
-xsel -p | qrencode -o- | feh - -Z

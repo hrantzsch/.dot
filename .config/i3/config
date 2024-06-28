@@ -28,8 +28,8 @@ workspace_auto_back_and_forth yes
 # --- appearance ---
 #
 
-new_window pixel 1
-new_float pixel 2
+default_border pixel 4
+default_floating_border pixel 6
 hide_edge_borders none
 
 smart_gaps on
@@ -118,7 +118,7 @@ bindsym $mod+v               exec EDITOR=$edit $term $term_cmd vimclip
 bindsym Control+Shift+Escape exec $term $term_cmd htop
 
 set $notes_home "$HOME/Nextcloud/Notes"
-bindsym $mod+n       exec $term $term_cmd $edit -c "lcd "$notes_home
+bindsym $mod+n       exec $term $term_cmd $edit -c "lcd "$notes_home $notes_home
 bindsym $mod+m       exec $term $term_cmd $edit -c "lcd "$notes_home $notes_home"/personal-notes.md"
 bindsym $mod+z       exec $term $term_cmd --title zettelkasten -- $notes_home"/Zettel/new_zettel.sh" $notes_home
 bindsym $mod+Shift+z exec $term $term_cmd --title zettelkasten -- "$HOME/bin/lzt"
