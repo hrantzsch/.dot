@@ -64,6 +64,8 @@ local normal_maps = {
   { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>",                           desc = "Stage Hunk" },
   { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>",                      desc = "Undo Stage Hunk" },
 
+  { "<leader>i",  group = "Copilot" },
+
   { "<leader>j", "<cmd>Telescope jumplist<cr>", desc = "Jumplist" },
 
   { "<leader>l", group = "LSP" },

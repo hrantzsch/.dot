@@ -75,7 +75,7 @@ require("lazy").setup({
     require("plugins.bufferline"),
     require("plugins.illuminate"),
     require("plugins.visual-multi"),
-    require("plugins.ghcopilot"),
+    require("plugins.copilot"),
 
     { "brenoprata10/nvim-highlight-colors", opts = { enable_named_colors = false, }, },
     { 'lewis6991/gitsigns.nvim',            opts = { current_line_blame_opts = { delay = 50 }, } },
