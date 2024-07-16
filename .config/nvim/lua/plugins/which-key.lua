@@ -24,110 +24,95 @@ end
 
 local function word_under_cursor()
   vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
-  vim.cmd('set hlsearch')   -- force highlight update
+  vim.cmd('set hlsearch') -- force highlight update
 end
 
 ---@format disable-next
 local normal_maps = {
-  ["<cr>"]  = { word_under_cursor,                               "Search word under cursor"},
-  ["<c-c>"] = { [["+yy]],                                        "Copy to system clipboard" },
-  ["<c-]>"] = { "<cmd>lua vim.lsp.buf.definition()<cr>",         "Go to Definition" },
-  ["<c-p>"] = { "<cmd>Telescope commands<cr>",                   "Commands" },
+  -- { "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to Definition" },
+  { "<c-c>", '"+yy',                        desc = "Copy to system clipboard" },
+  { "<c-p>", "<cmd>Telescope commands<cr>", desc = "Commands" },
+  { "<cr>", word_under_cursor,              desc = "Search word under cursor" },
 
-  ["[b"]    = { "<cmd>BufferLineCyclePrev<cr>",                  "Prev Buffer" },
-  ["]b"]    = { "<cmd>BufferLineCycleNext<cr>",                  "Next Buffer" },
-  ["[c"]    = { "<cmd>lua require('gitsigns').prev_hunk()<cr>",  "Prev Git Hunk" },
-  ["]c"]    = { "<cmd>lua require('gitsigns').next_hunk()<cr>",  "Next Git Hunk" },
-  ["[q"]    = { "<cmd>cprevious<cr>",                            "Prev Quickfix Entry" },
-  ["]q"]    = { "<cmd>cnext<cr>",                                "Next Quickfix Entry" },
+  { "<f12>", "<cmd>10split | terminal f12 %<cr>", desc = "f12" },
 
-  ["<f12>"] = { "<cmd>10split | terminal f12 %<cr>",             "f12" },
+  { "<leader><leader>", "<cmd>Telescope resume<cr>", desc = "Reopen Telescope" },
+  { "<leader>B", "<cmd>Telescope buffers<cr>",       desc = "Choose Buffer (Telescope)" },
+  { "<leader>b", "<cmd>BufferLinePick<cr>",          desc = "Pick Buffer" },
 
-  ["<leader>"] = {
+  { "<leader>c", group = "Config" },
+  { "<leader>cc", "<cmd>Lazy<cr>",          desc = "Lazy menu" },
+  { "<leader>ce", "<cmd>edit $MYVIMRC<cr>", desc = "Open Config" },
+  { "<leader>cu", "<cmd>Lazy update<cr>",   desc = "Lazy update" },
 
-    ["<leader>"] = { "<cmd>Telescope resume<cr>",  "Reopen Telescope" },
-    b = { "<cmd>BufferLinePick<cr>",               "Pick Buffer" },
-    B = { "<cmd>Telescope buffers<cr>",            "Choose Buffer (Telescope)" },
-    d = { "<cmd>bp|bd #<cr>",                      "Close Buffer" },
-    f = { "<cmd>lua vim.lsp.buf.format()<cr>",     "Format" },
-    j = { "<cmd>Telescope jumplist<cr>",           "Jumplist" },
-    o = { "<cmd>Telescope find_files<cr>",         "Open File" },
-    p = { toggle_prose_mode,                       "Toggle Prose Mode" },
-    q = { "<cmd>cclose<cr>",                       "Close Quickfix" },
-    w = { toggle_wrap,                             "Toggle Wrap" },
-    y = { [[:let @+=expand("%:p")<cr>]],           "Yank file name" },
+  { "<leader>d", "<cmd>bp|bd #<cr>",                  desc = "Close Buffer" },
+  { "<leader>f", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format" },
 
-    c = { name = "Config",
-      c = { "<cmd>Lazy<cr>",           "Lazy menu" },
-      e = { "<cmd>edit $MYVIMRC<cr>",  "Open Config" },
-      u = { "<cmd>Lazy update<cr>",    "Lazy update" },
-    },
+  { "<leader>g", group = "Git" },
+  { "<leader>gL", "<cmd>lua require('gitsigns').blame_line{full=true}<cr>", desc = "Full Blame" },
+  { "<leader>gR", "<cmd>Gitsigns reset_buffer<cr>",                         desc = "Reset Buffer" },
+  { "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>",                         desc = "Stage Buffer" },
+  { "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>",            desc = "Toggle line blame" },
+  { "<leader>gd", "<cmd>Gitsigns diffthis<cr>",                             desc = "Show Diff" },
+  { "<leader>gh", "<cmd>Gitsigns toggle_linehl<cr>",                        desc = "Toggle line highlighting" },
+  { "<leader>gj", "<cmd>Gitsigns next_hunk<cr>",                            desc = "Next Hunk" },
+  { "<leader>gk", "<cmd>Gitsigns prev_hunk<cr>",                            desc = "Prev Hunk" },
+  { "<leader>gl", "<cmd>Gitsigns blame_line<cr>",                           desc = "Blame" },
+  { "<leader>go", "<cmd>Telescope git_status<cr>",                          desc = "Open Changed File" },
+  { "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>",                         desc = "Preview Hunk" },
+  { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>",                           desc = "Reset Hunk" },
+  { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>",                           desc = "Stage Hunk" },
+  { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<cr>",                      desc = "Undo Stage Hunk" },
 
-    g = { name = "Git",
-      o = { "<cmd>Telescope git_status<cr>",    "Open Changed File" },
+  { "<leader>j", "<cmd>Telescope jumplist<cr>", desc = "Jumplist" },
 
-      b = { "<cmd>Gitsigns toggle_current_line_blame<cr>",             "Toggle line blame" },
-      d = { "<cmd>Gitsigns diffthis<cr>",                              "Show Diff" },
-      h = { "<cmd>Gitsigns toggle_linehl<cr>",                         "Toggle line highlighting" },
-      H = { require("custom.blame-heat").GitBlameHeat,                 "Git blame heat" },
-      j = { "<cmd>Gitsigns next_hunk<cr>",                             "Next Hunk" },
-      k = { "<cmd>Gitsigns prev_hunk<cr>",                             "Prev Hunk" },
-      l = { "<cmd>Gitsigns blame_line<cr>",                            "Blame" },
-      L = { "<cmd>lua require('gitsigns').blame_line{full=true}<cr>",  "Full Blame" },
-      p = { "<cmd>Gitsigns preview_hunk<cr>",                          "Preview Hunk" },
-      R = { "<cmd>Gitsigns reset_buffer<cr>",                          "Reset Buffer" },
-      r = { "<cmd>Gitsigns reset_hunk<cr>",                            "Reset Hunk" },
-      S = { "<cmd>Gitsigns stage_buffer<cr>",                          "Stage Buffer" },
-      s = { "<cmd>Gitsigns stage_hunk<cr>",                            "Stage Hunk" },
-      u = { "<cmd>Gitsigns undo_stage_hunk<cr>",                       "Undo Stage Hunk" },
-    },
+  { "<leader>l", group = "LSP" },
+  { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+  { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",           desc = "Code Action" },
+  { "<leader>ld", "<cmd>Telescope diagnostics<cr>",                   desc = "Diagnostics" },
+  { "<leader>lq", "<cmd>Telescope quickfix<cr>",                      desc = "Quickfix" },
+  { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                desc = "Rename" },
+  { "<leader>lt", toggle_lsp,                                         desc = "Toggle LSP" },
+  { "<leader>lu", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
 
-    l = { name = "LSP",
-      a = { "<cmd>lua vim.lsp.buf.code_action()<cr>",            "Code Action" },
-      d = { "<cmd>Telescope diagnostics<cr>",                    "Diagnostics" },
-      q = { "<cmd>Telescope quickfix<cr>",                       "Quickfix" },
-      r = { "<cmd>lua vim.lsp.buf.rename()<cr>",                 "Rename" },
-      S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",  "Workspace Symbols" },
-      t = { toggle_lsp,                                          "Toggle LSP" },
-      u = { "<cmd>Telescope lsp_references<cr>",                 "References" },
-    },
+  { "<leader>o", "<cmd>Telescope find_files<cr>", desc = "Open File" },
+  { "<leader>p", toggle_prose_mode,               desc = "Toggle Prose Mode" },
+  { "<leader>q", "<cmd>cclose<cr>",               desc = "Close Quickfix" },
 
-    t = { name = "Telescope",
-      a = { "<cmd>Telescope grep_string<cr>",   "Grep String" },
-      b = { "<cmd>Telescope git_branches<cr>",  "Checkout Branch" },
-      C = { "<cmd>Telescope git_bcommits<cr>",  "Checkout Commit (for current file)" },
-      c = { "<cmd>Telescope git_commits<cr>",   "Checkout Commit" },
-      g = { "<cmd>Telescope live_grep<cr>",     "Live Grep" },
-    },
+  { "<leader>t", group = "Telescope" },
+  { "<leader>tC", "<cmd>Telescope git_bcommits<cr>", desc = "Checkout Commit (for current file)" },
+  { "<leader>ta", "<cmd>Telescope grep_string<cr>",  desc = "Grep String" },
+  { "<leader>tb", "<cmd>Telescope git_branches<cr>", desc = "Checkout Branch" },
+  { "<leader>tc", "<cmd>Telescope git_commits<cr>",  desc = "Checkout Commit" },
+  { "<leader>tg", "<cmd>Telescope live_grep<cr>",    desc = "Live Grep" },
 
-  },
-  -- labels
-  ["<leader>v"] = "Visual Multi",
-}
+  { "<leader>v",                              desc = "Visual Multi" },
+  { "<leader>w", toggle_wrap,                 desc = "Toggle Wrap" },
+  { "<leader>y", ':let @+=expand("%:p")<cr>', desc = "Yank file name" },
 
----@format disable-next
-local insert_maps = {
-  ["<c-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>",  "Signature Help" },
-  ["<c-v>"] = { "<esc>pa",                                    "Paste" },
+  { "[b", "<cmd>BufferLineCyclePrev<cr>",                 desc = "Prev Buffer" },
+  { "[c", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
+  { "[q", "<cmd>cprevious<cr>",                           desc = "Prev Quickfix Entry" },
+  { "]b", "<cmd>BufferLineCycleNext<cr>",                 desc = "Next Buffer" },
+  { "]c", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
+  { "]q", "<cmd>cnext<cr>",                               desc = "Next Quickfix Entry" },
 }
 
 ---@format disable-next
 local visual_maps = {
-  ["<c-c>"] = { [["+y]], "Copy to system clipboard" },
-
-  -- labels
-  ["<leader>v"] = "Visual Multi",
+  { "<c-c>", '"+y', desc = "Copy to system clipboard", mode = "v" },
+  { "<leader>v",    desc = "Visual Multi", mode = "v" },
 }
 
 return {
   "folke/which-key.nvim",
+  dependencies = {'echasnovski/mini.icons', 'nvim-tree/nvim-web-devicons'},
   event = "VeryLazy",
   config = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
 
-    require("which-key").register(normal_maps)
-    require("which-key").register(insert_maps, { mode = "i" })
-    require("which-key").register(visual_maps, { mode = "v" })
+    require("which-key").add(normal_maps)
+    require("which-key").add(visual_maps)
   end,
 }
