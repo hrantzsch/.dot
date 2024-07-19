@@ -1,7 +1,8 @@
-icons = "awesome"
+[icons]
+icons = "none"
 
 [theme]
-name = "plain"
+theme = "plain"
 [theme.overrides]
 idle_bg      = "#26233a"
 idle_fg      = "#6e6a86"
@@ -15,46 +16,55 @@ critical_fg  = "#eb6f92"
 separator_bg = "#26233a"
 separator_fg = "#6e6a86"
 
-# [[block]]
-# block = "music"
-# player = "spotify"
-# buttons = ["play", "next"]
-# on_collapsed_click = "spotify"
+[[block]]
+block = "custom"
+# command = "watson report -Gcd | tail -n1 | cut -d ' ' -f 2-3"
+# command = "watson status | sed 's/ (.*/./'"
+command = "echo \"$(watson report -Gcd | tail -n1 | cut -d ' ' -f 2-3) - $(watson status | sed 's/ (.*/./')\""
+interval = 20
+[[block.click]]
+button = "left"
+update = true
+sync = true
+cmd = "watson-toggle"
 
 [[block]]
 block = "custom"
-command = "watson status | sed 's/ (.*/./'"
-interval = 60
+command = "pomo s"
+interval = 20
+[[block.click]]
+button = "left"
+update = true
+sync = true
+cmd = "pomo t"
 
 [[block]]
 block = "disk_space"
 path = "/"
-alias = ""
 info_type = "available"
-unit = "GB"
+alert_unit = "GB"
 interval = 20
 warning = 20.0
 alert = 10.0
+format = " $icon $available.eng(w:2) "
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_used_percents}"
-format_swap = "{swap_used_percents}"
+format = " $icon $mem_total_used_percents.eng(w:2) "
+format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
 
 [[block]]
 block = "cpu"
 interval = 1
 
 [[block]]
-block = "load"
-interval = 1
-format = "{1m}"
+block = "sound"
 
 [[block]]
-block = "sound"
+block = "battery"
+interval = 1
 
 [[block]]
 block = "time"
 interval = 20
-format = "%a %d/%m %R"
+format = " $timestamp.datetime(f:'%a %d/%m %R') "
