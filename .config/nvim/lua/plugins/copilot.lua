@@ -1,5 +1,3 @@
-vim.cmd "autocmd VimEnter * if expand('%:p:h') =~ '/home/hannes/Nextcloud/Notes' | Copilot disable | endif"
-
 return {
   {
     "zbirenbaum/copilot.lua",
@@ -16,7 +14,16 @@ return {
             next = "<c-.>",
             prev = "<c-,>",
           },
-        }
+        },
+        filetypes = {
+          text = false,
+          [""] = false,
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+        },
       })
     end,
   },
