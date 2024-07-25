@@ -28,6 +28,12 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
 # zstyle :omz:plugins:ssh-agent quiet yes
+# -- Hooks --
+
+# emit escape sequence for foot jump to prompt
+precmd() {
+  print -Pn "\e]133;A\e\\"
+}
 
 # -- User configuration --
 #
