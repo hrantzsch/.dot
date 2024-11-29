@@ -4,7 +4,7 @@
 
 set $mod Mod4
 
-set $term foot
+set $term footclient
 set $edit nvim
 set $notify notify-send
 
@@ -20,17 +20,24 @@ input type:keyboard {
   xkb_options grp:switch,caps:escape
 }
 
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
 workspace_layout default
 workspace_auto_back_and_forth yes
 
 set $lock_cmd "swaylock -f -c 338066"
 
-exec swayidle -w \
+exec_always --no-startup-id foot --server
+exec_always swayidle -w \
          timeout 300 '$lock_cmd' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep '$lock_cmd'
+exec_always swaybg -m solid_color -c "#286983"
 
-exec mako
+exec_always mako
 
 # workspace names
 set $ws1 1
@@ -102,18 +109,12 @@ bar {
 bindsym $mod+Return exec $term
 
 bindsym $mod+Shift+q kill
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
-# rofi & friends
 set $rofi_config ~/.config/rofi/moon.rasi
 bindsym $mod+space           exec "rofi -show combi -modi combi -combi-modi drun,run -config $rofi_config "
 bindsym $mod+o               exec "rofi -show filebrowser -modi filebrowser -config $rofi_config"
-bindsym $mod+t               exec "rofi -show window -config $rofi_config"
-bindsym $mod+Shift+e         exec ~/.config/i3/scripts/powermenu
 
-bindsym $mod+p               exec rofi-pass
-bindsym $mod+i               exec rofimoji
-bindsym $mod+v               exec EDITOR=$edit $term vimclip
+bindsym $mod+v               exec EDITOR=$edit $term sh -c vimclip
 bindsym Control+Shift+Escape exec $term htop
 
 set $notes_home "$HOME/Nextcloud/Notes"
@@ -240,13 +241,13 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-set $mode_system (l)ock, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown, reload (c)onfig, (e)xit
+set $mode_system (l)ock, (s)uspend, (h)ibernate, (Shift+r)eboot, (Shift+s)hutdown, reload (c)onfig, (e)xit
 bindsym $mod+0 mode "$mode_system"
 mode "$mode_system" {
     bindsym l       exec --no-startup-id $lock_cmd,             mode "default"
-    bindsym s       exec --no-startup-id systemctl suspend,     mode "default"
+    bindsym s       exec --no-startup-id $lock_cmd & systemctl suspend,     mode "default"
     bindsym h       exec --no-startup-id systemctl hibernate,   mode "default"
-    bindsym r       exec --no-startup-id systemctl reboot,      mode "default"
+    bindsym Shift+r exec --no-startup-id systemctl reboot,      mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff,    mode "default"
     bindsym c       reload,                                     mode "default"
     bindsym e       exec --no-startup-id swaymsg exit,          mode "default"

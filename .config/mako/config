@@ -1,15 +1,15 @@
 font=Fantasque Sans Mono 12
-background-color=#faf4ed
-text-color=#575279
-border-color=#d7827e
+background-color=#393552
+text-color=#e0def4
+border-color=#3e8fb0
 # no pango formatting
-markup=0
+# markup=0
 # timeout in milliseconds.
-default-timeout=7000
+default-timeout=2000
 max-visible=3
 # mako will save notifications that have reached their timeout into the history buffer in‐
 # stead of immediately deleting them.
-history=1
+# history=1
 
 # [ Global Config ]
 # max no of notification in buffer

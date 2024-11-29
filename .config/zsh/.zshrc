@@ -40,11 +40,13 @@ precmd() {
 # -- PATHs --
 #
 # -> put into $ZDOTDIR/.zprofile!
-
-alias o=xdg-open
-alias v=nvim
-
 alias zshrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
+
+alias o="xdg-open"
+alias v="nvim"
+
+
+source $ZDOTDIR/.zprofile
 
 # -- oh-my-zsh --
 
@@ -55,11 +57,6 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+unsetopt share_history  # disable shared history
+
 eval "$(zoxide init zsh)"
-
-# disable shared history
-unsetopt share_history
-
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent

@@ -29,7 +29,6 @@ end
 
 ---@format disable-next
 local normal_maps = {
-  -- { "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go to Definition" },
   { "<c-c>", '"+yy',                        desc = "Copy to system clipboard" },
   { "<c-p>", "<cmd>Telescope commands<cr>", desc = "Commands" },
   { "<cr>", word_under_cursor,              desc = "Search word under cursor" },
@@ -72,6 +71,7 @@ local normal_maps = {
   { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",           desc = "Code Action" },
   { "<leader>ld", "<cmd>Telescope diagnostics<cr>",                   desc = "Diagnostics" },
+  { "<leader>ll", "<cmd>lua vim.diagnostic.open_float()<cr>",         desc = "Line Diagnostics" },
   { "<leader>lq", "<cmd>Telescope quickfix<cr>",                      desc = "Quickfix" },
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                desc = "Rename" },
   { "<leader>lt", toggle_lsp,                                         desc = "Toggle LSP" },

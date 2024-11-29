@@ -42,6 +42,7 @@ return {
       { "<leader>ic", "<cmd>CopilotChatToggle<cr>",  desc = "Toggle Chat" },
       { "<leader>ie", "<cmd>CopilotChatExplain<cr>", desc = "Explain" },
       { "<leader>ir", "<cmd>CopilotChatReview<cr>",  desc = "Review" },
+      { "<leader>ic", ":'<,'>CopilotChat<cr>", mode = "v", desc = "Open Copilot Chat with selection" },
     }
     -- See Commands section for default commands if you want to lazy load on them
   },
