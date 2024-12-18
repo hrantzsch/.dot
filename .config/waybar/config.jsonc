@@ -2,11 +2,14 @@
     "layer": "top",
     "reload_style_on_change": true,
     "height": 24,
-    "modules-left": ["custom/workspaces"],
-    "modules-center": ["wlr/taskbar"],
+    "modules-left": ["niri/workspaces", "wlr/taskbar"],
+    "modules-center": ["niri/window"],
     "modules-right": ["backlight", "battery", "clock", "tray"],
-    "custom/workspaces": {
-        "exec": "$HOME/.config/waybar/modules/niri-workspaces.sh \"$WAYBAR_OUTPUT_NAME\""
+
+    "niri/workspaces": {
+      "format": "{icon}"
+    },
+    "niri/window": {
     },
     "wlr/taskbar": {
       "icon-size": 12,
@@ -14,19 +17,19 @@
       "on-click-middle": "close"
     },
     "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+      "format": "{capacity}% {icon}",
+      "format-icons": ["", "", "", "", ""]
     },
     "clock": {
         "format-alt": "{:%a, %d. %b  %H:%M}"
     },
-      "backlight": {
-        "device": "intel_backlight",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{percent}% {icon}",
+      "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "tray": {
-        "spacing": 6,
-        "show-passive-items": true
+      "spacing": 6,
+      "show-passive-items": true
     }
 }

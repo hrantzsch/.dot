@@ -78,15 +78,21 @@ layout {
   }
 }
 
-spawn-at-startup "waybar"
-spawn-at-startup "dex" "--autostart" "--environment" "niri" "--search-paths" "~/.config/autostart/"
-spawn-at-startup "swaybg" "-c" "668888"
+environment {
+  DISPLAY ":0"
+  ELECTRON_OZONE_PLATFORM_HINT "wayland"
+}
 
+spawn-at-startup "waybar"
+spawn-at-startup "swaybg" "-c" "668888"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -f -c 338066'" "before-sleep" "'swaylock -f -c 338066'"
+spawn-at-startup "dex" "--autostart" "--environment" "niri" "--search-paths" "~/.config/autostart/"
+spawn-at-startup "signal-desktop"
+spawn-at-startup "steam"
 
 prefer-no-csd
 
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d:%H%M%S.png"
 // disable: screenshot-path null
 
 animations {
@@ -120,7 +126,7 @@ binds {
 
   Mod+Return { spawn "foot"; }
   Mod+Space { spawn "fuzzel"; }
-  Super+Alt+L { spawn "swaylock"; }
+  Mod+0 { spawn "~/.config/niri/powermenu"; }
 
   Mod+V { spawn "foot" "-e" "vimclip"; }
   Mod+N { spawn "bash" "-c" "foot -e nvim -c 'lcd ~/Nextcloud/Notes' ~/Nextcloud/Notes"; }
@@ -166,36 +172,10 @@ binds {
   Mod+Ctrl+Home { move-column-to-first; }
   Mod+Ctrl+End  { move-column-to-last; }
 
-  // Mod+Shift+H   { focus-monitor-left; }
-  // Mod+Shift+J   { focus-monitor-down; }
-  // Mod+Shift+K   { focus-monitor-up; }
-  // Mod+Shift+L   { focus-monitor-right; }
-
-  // Alternatively, there are commands to move just a single window:
-  // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
-  // ...
-
-  // And you can also move a whole workspace to another monitor:
-  // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
-  // ...
-
-  Mod+Page_Down    { focus-workspace-down; }
-  Mod+Page_Up    { focus-workspace-up; }
-  Mod+I        { focus-workspace-down; }
-  Mod+U        { focus-workspace-up; }
-  Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-  Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-  Mod+Shift+I     { move-column-to-workspace-down; }
-  Mod+Shift+U     { move-column-to-workspace-up; }
-
-  // Alternatively, there are commands to move just a single window:
-  // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
-  // ...
-
-  // Mod+Shift+Page_Down { move-workspace-down; }
-  // Mod+Shift+Page_Up   { move-workspace-up; }
-  // Mod+Shift+I     { move-workspace-down; }
-  // Mod+Shift+U     { move-workspace-up; }
+  Mod+I       { focus-workspace-down; }
+  Mod+U       { focus-workspace-up; }
+  Mod+Shift+I { move-column-to-workspace-down; }
+  Mod+Shift+U { move-column-to-workspace-up; }
 
   // You can bind mouse wheel scroll ticks using the following syntax.
   // These binds will change direction based on the natural-scroll setting.
@@ -297,7 +277,7 @@ binds {
   // Mod+Space     { switch-layout "next"; }
   // Mod+Shift+Space { switch-layout "prev"; }
 
-  Print { screenshot; }
+  Ctrl+Shift+S { screenshot; }
   Ctrl+Print { screenshot-screen; }
   Alt+Print { screenshot-window; }
 

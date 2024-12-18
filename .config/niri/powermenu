@@ -1,0 +1,16 @@
+#!/bin/bash
+
+choice=$(echo \
+' Lock
+ Logout
+⏾ Suspend
+ Reboot
+ Shutdown' | fuzzel --dmenu --no-sort --lines=5)
+
+case "$choice" in
+  " Lock") swaylock -f -c 338066 ;;
+  " Logout") niri msg action quit ;;
+  "⏾ Suspend") systemctl suspend ;;
+  " Reboot") systemctl reboot ;;
+  " Shutdown") systemctl poweroff ;;
+esac

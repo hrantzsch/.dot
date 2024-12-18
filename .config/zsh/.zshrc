@@ -11,12 +11,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HYPHEN_INSENSITIVE="true"
 
 # -- Plugins --
-
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Externally installed:
-#   - oh-my-zsh-plugin-autosuggestions
-plugins=(fd fzf git ssh-agent)
+plugins=(fzf git ssh-agent)
 
 export FZF_DEFAULT_COMMAND="fd --unrestricted --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -27,9 +24,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#ebbcba,pointer:#ea9a97
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
-# zstyle :omz:plugins:ssh-agent quiet yes
 # -- Hooks --
-
 # emit escape sequence for foot jump to prompt
 precmd() {
   print -Pn "\e]133;A\e\\"
@@ -38,13 +33,12 @@ precmd() {
 # -- User configuration --
 #
 # -- PATHs --
-#
 # -> put into $ZDOTDIR/.zprofile!
+
 alias zshrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
 
 alias o="xdg-open"
 alias v="nvim"
-
 
 source $ZDOTDIR/.zprofile
 
