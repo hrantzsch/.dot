@@ -13,7 +13,7 @@ HYPHEN_INSENSITIVE="true"
 # -- Plugins --
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(fzf git ssh-agent)
+plugins=(fzf git)
 
 export FZF_DEFAULT_COMMAND="fd --unrestricted --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -24,11 +24,21 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#ebbcba,pointer:#ea9a97
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
-# -- Hooks --
-# emit escape sequence for foot jump to prompt
+# -- terminal escape sequences --
+set_term_title() {
+  print -Pn "\e]0;$1\a"
+}
+
+preexec() {
+  [[ -n "$1" ]] && set_term_title "$1"
+}
+
 precmd() {
+  set_term_title "${PWD/#$HOME/~}: zsh"  # Show shell and working directory
+  # foot jump to prompt
   print -Pn "\e]133;A\e\\"
 }
+
 
 # -- User configuration --
 #

@@ -47,6 +47,8 @@ vim.o.background = [[dark]]
 vim.o.number = true
 vim.o.relativenumber = true
 
+vim.o.spelllang = "en,de"
+
 vim.cmd([[autocmd TextYankPost * lua vim.highlight.on_yank {timeout = 250}]])
 
 vim.api.nvim_create_autocmd("BufWritePre", {

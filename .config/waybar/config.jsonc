@@ -3,25 +3,46 @@
     "reload_style_on_change": true,
     "height": 24,
     "modules-left": ["niri/workspaces", "wlr/taskbar"],
-    "modules-center": ["niri/window"],
-    "modules-right": ["backlight", "battery", "clock", "tray"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/timetracking", "pulseaudio", "backlight", "tray", "battery", "group/group-power"],
 
     "niri/workspaces": {
       "format": "{icon}"
     },
     "niri/window": {
+      "format": "{title}"
     },
     "wlr/taskbar": {
       "icon-size": 12,
       "on-click": "activate",
       "on-click-middle": "close"
     },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "󰝟",
+        "format-icons": ["", "", ""]
+    },
     "battery": {
       "format": "{capacity}% {icon}",
       "format-icons": ["", "", "", "", ""]
     },
+
     "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
+      "format": "{:%a, %d. %b  %H:%M}",
+      "tooltip-format": "<tt>{calendar}</tt>",
+      "calendar": {
+        "mode"          : "year",
+        "mode-mon-col"  : 3,
+        "weeks-pos"     : "left",
+        "format": {
+          "months":     "<span color='#9ccfd8'><b>{}</b></span>",
+          "days":       "<span color='#e0def4'>{}</span>",
+          "weeks":      "<span color='#c4a7e7'><b>{}</b></span>",
+          "weekdays":   "<span color='#31748f'>{}</span>",
+          "today":      "<span color='#eb6f92'><b><u>{}</u></b></span>"
+          }
+        }
     },
     "backlight": {
       "device": "intel_backlight",
@@ -31,5 +52,58 @@
     "tray": {
       "spacing": 6,
       "show-passive-items": true
-    }
+    },
+
+  "custom/timetracking": {
+      "exec": "sleep 0.2 && jt today",
+      "interval": 40,
+      "on-click": "jt toggle",
+      "exec-on-event": true
+  },
+
+  "group/group-power": {
+      "orientation": "inherit",
+      "drawer": {
+          "transition-duration": 200,
+          "children-class": "not-power",
+          "transition-left-to-right": false
+      },
+      "modules": [
+          "custom/power", // First element is the "group leader" and won't ever be hidden
+          "custom/lock",
+          "custom/quit",
+          "custom/suspend",
+          "custom/reboot"
+      ]
+  },
+  "custom/quit": {
+      "format": "󰗼",
+      "tooltip": true,
+      "tooltip-format": "Exit Niri",
+      "on-double-click": "niri msg action quit"
+  },
+  "custom/lock": {
+      "format": "󰍁",
+      "tooltip": true,
+      "tooltip-format": "Lock screen",
+      "on-double-click": "~/bin/lock"
+  },
+  "custom/suspend": {
+      "format": "⏾",
+      "tooltip": true,
+      "tooltip-format": "Suspend",
+      "on-double-click": "systemctl suspend"
+  },
+  "custom/reboot": {
+      "format": "󰜉",
+      "tooltip": true,
+      "tooltip-format": "Reboot",
+      "on-double-click": "systemctl reboot"
+  },
+  "custom/power": {
+      "format": "",
+      "tooltip": true,
+      "tooltip-format": "Shutdown",
+      "on-double-click": "systemctl poweroff"
+  }
 }
