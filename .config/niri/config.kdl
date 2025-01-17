@@ -37,15 +37,15 @@ switch-events {
 
 cursor {
   hide-when-typing
-  hide-after-inactive-ms 3000
+  hide-after-inactive-ms 20000
 }
 
 layout {
   gaps 8
-  center-focused-column "never"
+  center-focused-column "on-overflow"
   preset-column-widths {
-    proportion 0.5
     proportion 0.33333
+    proportion 0.5
     proportion 0.66667
   }
   default-column-width { proportion 0.5; }
@@ -81,6 +81,7 @@ layout {
 environment {
   DISPLAY ":0"
   ELECTRON_OZONE_PLATFORM_HINT "wayland"
+  QT_QPA_PLATFORM "wayland"
 }
 
 spawn-at-startup "waybar"

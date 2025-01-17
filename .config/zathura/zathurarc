@@ -1,3 +1,5 @@
+# Theme from https://github.com/edunfelt/zathura/blob/main/rose-pine-dawn
+#
 # https://github.com/rose-pine/rose-pine-theme
 # Soho vibes for Zathura: Rosé Pine Dawn
 #
@@ -25,8 +27,8 @@ set notification-error-fg       "#ea9d34"
 set notification-warning-bg     "#6e6a86"
 set notification-warning-fg     "#ea9d34"
 
-set highlight-color             "#b4637a"
-set highlight-active-color      "#d7827e"
+set highlight-color             "rgba(0xb4, 0x63, 0x7a, 0.5)"
+set highlight-active-color      "rgba(0xd7, 0x82, 0x7e, 0.5)"
 
 set completion-bg               "#6e6a86"
 set completion-fg               "#d7827e"
@@ -39,9 +41,3 @@ set recolor-darkcolor           "#575279"
 
 set recolor                     "true"
 set recolor-keephue             "true"
-
-set index-bg                    "#faf4ed"
-set index-fg                    "#575279"
-
-set index-active-bg             "#575279"
-set index-active-fg             "#faf4ed"

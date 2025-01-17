@@ -5,7 +5,7 @@ return {
     require("mason").setup()
     require("mason-lspconfig").setup {
       ensure_installed = { "lua_ls" },
-      automatic_installation = true,
+      automatic_installation = false,
     }
     local lspconf = require("lspconfig")
 
@@ -41,5 +41,7 @@ return {
     }
 
     lspconf.rust_analyzer.setup {}
+
+    vim.lsp.inlay_hint.enable()
   end
 }

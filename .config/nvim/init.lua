@@ -58,6 +58,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = { "/dev/shm/pass.?*/?*.txt", "$TMPDIR/pass.?*/?*.txt", "/tmp/pass.?*/?*.txt" },
+  callback = function()
+    vim.opt.backup = false
+    vim.opt.writebackup = false
+    vim.opt.swapfile = false
+    vim.opt.viminfo = ''
+    vim.opt.undofile = false
+    vim.api.nvim_echo({ { "Editing password without leaky options", "None" } }, false, {})
+  end,
+})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

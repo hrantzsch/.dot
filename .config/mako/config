@@ -37,7 +37,7 @@ max-visible=3
 # height=99
 
 # margin of notification which is margin for the list of notification block( value in px ).
-# outer-margin=1
+outer-margin=8
 # Margin of each individual notification
 # margin=0
 
