@@ -58,7 +58,8 @@
       "exec": "sleep 0.2 && jt today",
       "interval": 40,
       "on-click": "jt toggle",
-      "exec-on-event": true
+      "exec-on-event": true,
+      "tooltip": false
   },
 
   "group/group-power": {

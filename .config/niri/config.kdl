@@ -120,11 +120,12 @@ hotkey-overlay {
 binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
 
-  Mod+Return  repeat=false { spawn "footclient"; }
-  Mod+Space   repeat=false { spawn "fuzzel"; }
-  Mod+W       repeat=false { spawn "~/.config/niri/switchwindow"; }
-  Mod+0       repeat=false { spawn "~/.config/niri/powermenu"; }
-  Ctrl+Alt+L  repeat=false { spawn "sh" "-c" "swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine"; }
+  Mod+Return        repeat=false { spawn "footclient"; }
+  Mod+Shift+Return  repeat=false { spawn "footclient" "-e" "yazi"; }
+  Mod+Space         repeat=false { spawn "fuzzel"; }
+  Mod+W             repeat=false { spawn "~/.config/niri/switchwindow"; }
+  Mod+0             repeat=false { spawn "~/.config/niri/powermenu"; }
+  Ctrl+Alt+L        repeat=false { spawn "sh" "-c" "swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine"; }
 
   Mod+V       repeat=false { spawn "footclient" "-e" "vimclip"; }
   Mod+N       repeat=false { spawn "bash" "-c" "footclient -e nvim -c 'lcd ~/Nextcloud/Notes' ~/Nextcloud/Notes"; }
