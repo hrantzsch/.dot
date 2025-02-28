@@ -89,7 +89,7 @@ spawn-at-startup "swaybg" "-c" "668888"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'" "before-sleep" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'"
 spawn-at-startup "dex" "--autostart" "--environment" "niri" "--search-paths" "~/.config/autostart/"
 
-screenshot-path "~/Pictures/Screenshots/%Y-%m-%d:%H%M%S.png"
+screenshot-path null
 
 animations {
   slowdown 0.5
@@ -218,11 +218,13 @@ binds {
 
   Mod+R       { switch-preset-column-width; }
   Mod+F       { maximize-column; }
+  Mod+D       { set-column-width "50%"; }
+  Mod+S       { set-column-width "33%"; }
   Mod+Shift+F { fullscreen-window; }
   Mod+C       { center-column; }
 
-  Mod+Y { set-column-width "-10%"; }
-  Mod+O { set-column-width "+10%"; }
+  // Mod+Y { set-column-width "-10%"; }
+  // Mod+O { set-column-width "+10%"; }
   Mod+TouchpadScrollDown { set-column-width "+10%"; }
   Mod+TouchpadScrollUp   { set-column-width "-10%"; }
 
