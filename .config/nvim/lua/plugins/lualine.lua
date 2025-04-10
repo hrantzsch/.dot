@@ -11,7 +11,7 @@ return {
         lualine_a = { 'branch' },
         lualine_b = { { 'filename', path = 1 } },
         lualine_c = { 'diagnostics' },
-        lualine_x = { 'lsp_progress', 'filetype', 'encoding', 'fileformat' },
+        lualine_x = { 'lsp_progress', 'filetype', 'encoding', 'fileformat', 'copilot', },
         lualine_y = { 'location' },
         lualine_z = {},
       },
@@ -25,5 +25,6 @@ return {
       },
     },
   },
-  { 'arkav/lualine-lsp-progress', dependencies = { "nvim-lualine/lualine.nvim", }, },
+  { 'arkav/lualine-lsp-progress' },
+  { 'AndreM222/copilot-lualine' }
 }

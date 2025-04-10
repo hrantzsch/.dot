@@ -27,7 +27,6 @@ return {
       })
     end,
   },
-  -- { "github/copilot.vim" },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     event = "VeryLazy",
