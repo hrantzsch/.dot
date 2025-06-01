@@ -49,13 +49,13 @@ vim.o.relativenumber = true
 
 vim.o.spelllang = "en,de"
 
-vim.cmd([[autocmd TextYankPost * lua vim.highlight.on_yank {timeout = 250}]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank { timeout = 250 } end,
+})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.py" },
-  callback = function()
-    vim.lsp.buf.format()
-  end,
+  callback = function() vim.lsp.buf.format() end,
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -78,24 +78,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-    require("plugins.rosepine"),
-    require("plugins.lsp"),
-    require("plugins.telescope"),
-    require("plugins.treesitter"),
-    require("plugins.lualine"),
-    require("plugins.which-key"),
-    require("plugins.bufferline"),
-    require("plugins.illuminate"),
-    require("plugins.visual-multi"),
-    require("plugins.copilot"),
-
-    { "brenoprata10/nvim-highlight-colors", opts = { enable_named_colors = false, }, },
-    { 'lewis6991/gitsigns.nvim',            opts = { current_line_blame_opts = { delay = 50 }, } },
-
-    { "tpope/vim-repeat" },
-    { "tpope/vim-surround" },
-  },
+require("lazy").setup("plugins",
   {
     install = { missing = true, colorscheme = { "rose-pine" }, },
-  })
+  }
+)
