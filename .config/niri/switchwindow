@@ -1,9 +1,9 @@
 #!/bin/bash
-windows=$(niri msg --json windows | jq -r '.. | objects | "\(.id): \(.title)"' )
+windows=$(niri msg --json windows | jq -r '.. | objects | "\(.id)) \(.app_id): \(.title)"' )
 if [ -z "$windows" ]; then
     echo "No open windows found." >&2
     exit 1
 fi
 
-selected=$(echo "$windows" | fuzzel --dmenu | cut -d: -f1)
+selected=$(echo "$windows" | fuzzel --dmenu | cut -d')' -f1)
 niri msg action focus-window --id "$selected"

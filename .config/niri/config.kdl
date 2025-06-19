@@ -16,8 +16,8 @@ input {
     scroll-factor 0.7
   }
 
-  warp-mouse-to-focus
-  focus-follows-mouse max-scroll-amount="30%"
+  // warp-mouse-to-focus
+  focus-follows-mouse max-scroll-amount="24%"
   workspace-auto-back-and-forth
 }
 
@@ -42,7 +42,11 @@ cursor {
 
 layout {
   gaps 8
-  center-focused-column "on-overflow"
+
+  center-focused-column "never"
+  always-center-single-column
+  empty-workspace-above-first
+
   preset-column-widths {
     proportion 0.33333
     proportion 0.5
@@ -71,8 +75,8 @@ layout {
   }
 
   struts {
-    left 4
-    right 4
+    left 16
+    right 16
     top 4
     bottom 4
   }
@@ -82,6 +86,7 @@ environment {
   DISPLAY ":0"
   ELECTRON_OZONE_PLATFORM_HINT "wayland"
   QT_QPA_PLATFORM "wayland"
+  BROWSER "firefox"
 }
 
 spawn-at-startup "waybar"
@@ -120,6 +125,8 @@ hotkey-overlay {
 binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
 
+  Mod+E             repeat=false { toggle-overview; }
+
   Mod+Return        repeat=false { spawn "footclient"; }
   Mod+Shift+Return  repeat=false { spawn "footclient" "-e" "yazi"; }
   Mod+Space         repeat=false { spawn "fuzzel"; }
@@ -142,38 +149,39 @@ binds {
   XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+10%"; }
 
   // Window movement
-  //
-  // Note: also available is
-  //   focus-window-or-workspace-*
-  //   move-window-down-or-to-workspace-*
-  //
-  Mod+H         { focus-column-or-monitor-left; }
-  Mod+J         { focus-window-or-monitor-down; }
-  Mod+K         { focus-window-or-monitor-up; }
-  Mod+L         { focus-column-or-monitor-right; }
+  // Mod+H         { focus-column-or-monitor-left; }
+  // Mod+L         { focus-column-or-monitor-right; }
+  Mod+H         { focus-column-left; }
+  Mod+J         { focus-window-or-workspace-down; }
+  Mod+K         { focus-window-or-workspace-up; }
+  Mod+L         { focus-column-right; }
 
   Mod+Shift+H   { move-column-left; }
-  Mod+Shift+J   { move-window-down; }
-  Mod+Shift+K   { move-window-up; }
+  Mod+Shift+J   { move-window-down-or-to-workspace-down; }
+  Mod+Shift+K   { move-window-up-or-to-workspace-up; }
   Mod+Shift+L   { move-column-right; }
 
   // Monitor movement
-  // Mod+S         { focus-monitor-left; }
-  // Mod+G         { focus-monitor-right; }
-  Mod+Ctrl+H    { move-workspace-to-monitor-left; }
-  Mod+Ctrl+J    { move-workspace-to-monitor-down; }
-  Mod+Ctrl+K    { move-workspace-to-monitor-up; }
-  Mod+Ctrl+L    { move-workspace-to-monitor-right; }
+  Mod+Ctrl+H        { focus-monitor-left; }
+  Mod+Ctrl+J        { focus-monitor-down; }
+  Mod+Ctrl+K        { focus-monitor-up; }
+  Mod+Ctrl+L        { focus-monitor-right; }
+  Mod+Ctrl+Shift+H  { move-workspace-to-monitor-left; }
+  Mod+Ctrl+Shift+J  { move-workspace-to-monitor-down; }
+  Mod+Ctrl+Shift+K  { move-workspace-to-monitor-up; }
+  Mod+Ctrl+Shift+L  { move-workspace-to-monitor-right; }
 
+  Mod+Y         { focus-column-first; }
+  Mod+O         { focus-column-last; }
   Mod+Home      { focus-column-first; }
   Mod+End       { focus-column-last; }
   Mod+Ctrl+Home { move-column-to-first; }
   Mod+Ctrl+End  { move-column-to-last; }
 
-  Mod+I         { focus-workspace-down; }
-  Mod+U         { focus-workspace-up; }
-  Mod+Shift+I   { move-column-to-workspace-down; }
-  Mod+Shift+U   { move-column-to-workspace-up; }
+  // Mod+I         { focus-workspace-down; }
+  // Mod+U         { focus-workspace-up; }
+  // Mod+Shift+I   { move-column-to-workspace-down; }
+  // Mod+Shift+U   { move-column-to-workspace-up; }
 
   Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
   Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
