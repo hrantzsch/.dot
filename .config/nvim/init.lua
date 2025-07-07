@@ -35,7 +35,6 @@ vim.o.smartindent = true
 vim.o.expandtab = true
 
 -- disable unused provder warnings in :checkhealth
-vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -43,6 +42,7 @@ vim.g.loaded_perl_provider = 0
 -- appearance
 vim.o.termguicolors = true
 vim.o.background = [[dark]]
+vim.o.winborder = [[single]]
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -51,11 +51,6 @@ vim.o.spelllang = "en,de"
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank { timeout = 250 } end,
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.py" },
-  callback = function() vim.lsp.buf.format() end,
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {

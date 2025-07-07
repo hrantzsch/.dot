@@ -1,24 +1,29 @@
 return {
-  "williamboman/mason-lspconfig.nvim",
-  dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig", },
-  config = function()
-    require("mason").setup()
-    require("mason-lspconfig").setup {
-      ensure_installed = { "lua_ls" },
-      automatic_installation = false,
-    }
-    local lspconf = require("lspconfig")
+  "mason-org/mason-lspconfig.nvim",
+  dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig", },
 
-    lspconf.lua_ls.setup {
+  config = function()
+    vim.diagnostic.config({
+      virtual_text = true,
+      virtual_lines = false,
+      severity_sort = true,
+      jump = {
+        float = true,
+        severity = vim.diagnostic.severity.ERROR,
+      },
+      float = { source = "always" },
+    })
+
+    vim.lsp.config('lua_ls', {
       settings = {
         Lua = {
           addonManager = { enable = false, },
           diagnostics = { globals = { 'vim', 'use' } },
         },
       },
-    }
+    })
 
-    lspconf.pylsp.setup {
+    vim.lsp.config('pylsp', {
       settings = {
         pylsp = {
           plugins = {
@@ -38,10 +43,25 @@ return {
           },
         },
       },
+    })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = { "*.py" },
+      callback = function() vim.lsp.buf.format() end,
+    })
+
+
+    vim.lsp.config('rust_analyzer', {})
+
+    -- vim.lsp.inlay_hint.enable()
+
+    vim.lsp.config('ts_ls', {})
+
+    -- vim.lsp.clangd.setup {}
+
+    require("mason").setup()
+    require("mason-lspconfig").setup {
+      ensure_installed = { "lua_ls" },
+      automatic_installation = false,
     }
-
-    lspconf.rust_analyzer.setup {}
-
-    vim.lsp.inlay_hint.enable()
   end
 }

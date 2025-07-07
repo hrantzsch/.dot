@@ -7,7 +7,7 @@
     "modules-right": ["custom/timetracking", "pulseaudio", "backlight", "tray", "battery", "group/group-power"],
 
     "niri/workspaces": {
-      "format": "{icon}"
+      "format": "⏺"
     },
     "niri/window": {
       "format": "{title}"

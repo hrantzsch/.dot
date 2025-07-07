@@ -16,7 +16,7 @@ return {
     { "<leader>B", "<cmd>Telescope buffers<cr>",       desc = "Choose Buffer (Telescope)" },
     { "<leader>j", "<cmd>Telescope jumplist<cr>",      desc = "Jumplist" },
     { "<leader>o", "<cmd>Telescope find_files<cr>",    desc = "Open File" },
-    { "<leader>p", "<cmd>Telescope live_grep<cr>",     desc = "Live Grep" },
+    { "<leader>R", "<cmd>Telescope live_grep<cr>",     desc = "Live Grep" },
     { "<leader>r", "<cmd>Telescope grep_string<cr>",   desc = "Grep String" },
     -- git
     { "<leader>go", "<cmd>Telescope git_status<cr>",   desc = "Open Changed File" },
