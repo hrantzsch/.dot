@@ -1,69 +1,6 @@
-vim.api.nvim_set_keymap('n', '<Space>', '', {})
-vim.g.mapleader = " "
-
--- general
-vim.o.hidden = true
-vim.o.mouse = "a"
--- vim.o.foldenable = false -- no auto-folding
-vim.o.scrolloff = 3
-vim.o.wrap = false
-vim.o.undofile = true
-
-vim.o.linebreak = true
-
-vim.o.completeopt = "menuone,noselect" -- disable scratch preview
-
--- search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.incsearch = true
-
-vim.o.spelllang = "en_us,de"
-
--- trailing spaces
-vim.o.list = true
-vim.o.listchars = "tab:··,trail:·"            -- show tabs and trailing spaces
-vim.cmd "autocmd BufWritePre * %s/\\s\\+$//e" -- remove trailing tabs and spaces
-
-vim.o.joinspaces = false                      -- insert only one space after '.' when joining lines
-
--- indentation
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.smartindent = true
-vim.o.expandtab = true
-
--- disable unused provder warnings in :checkhealth
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-
--- appearance
-vim.o.termguicolors = true
-vim.o.background = [[dark]]
-vim.o.winborder = [[single]]
-
-vim.o.number = true
-vim.o.relativenumber = true
-
-vim.o.spelllang = "en,de"
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function() vim.highlight.on_yank { timeout = 250 } end,
-})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = { "/dev/shm/pass.?*/?*.txt", "$TMPDIR/pass.?*/?*.txt", "/tmp/pass.?*/?*.txt" },
-  callback = function()
-    vim.opt.backup = false
-    vim.opt.writebackup = false
-    vim.opt.swapfile = false
-    vim.opt.viminfo = ''
-    vim.opt.undofile = false
-    vim.api.nvim_echo({ { "Editing password without leaky options", "None" } }, false, {})
-  end,
-})
+require("core.options")
+require("core.autocmd")
+require("core.lsp")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -73,7 +10,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins",
+require("lazy").setup(
+  "plugins",
   {
     install = { missing = true, colorscheme = { "rose-pine" }, },
   }
