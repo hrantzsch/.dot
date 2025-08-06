@@ -50,7 +50,6 @@ alias zshrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
 alias o="xdg-open"
 alias v="nvim"
 
-source $ZDOTDIR/.zprofile
 
 # -- oh-my-zsh --
 
