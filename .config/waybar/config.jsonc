@@ -55,9 +55,9 @@
     },
 
   "custom/timetracking": {
-      "exec": "sleep 0.2 && jt today",
+      "exec": "sleep 0.2 && tt.py progress --hours 7.2",
       "interval": 40,
-      "on-click": "jt toggle",
+      "on-click": "tt.py toggle",
       "exec-on-event": true,
       "tooltip": false
   },
