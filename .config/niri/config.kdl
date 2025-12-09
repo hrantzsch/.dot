@@ -86,10 +86,11 @@ environment {
   DISPLAY ":0"
   ELECTRON_OZONE_PLATFORM_HINT "wayland"
   QT_QPA_PLATFORM "wayland"
-  BROWSER "firefox"
 }
 
-spawn-at-startup "waybar"
+spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"
+
 spawn-at-startup "swaybg" "-c" "668888"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'" "before-sleep" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'"
 spawn-at-startup "dex" "--autostart" "--environment" "niri" "--search-paths" "~/.config/autostart/"
@@ -225,9 +226,10 @@ binds {
   Mod+Period { consume-or-expel-window-right; }
 
   Mod+R       { switch-preset-column-width; }
+  Mod+A       { set-column-width "33%"; }
+  Mod+S       { set-column-width "50%"; }
+  Mod+D       { set-column-width "66%"; }
   Mod+F       { maximize-column; }
-  Mod+D       { set-column-width "50%"; }
-  Mod+S       { set-column-width "33%"; }
   Mod+Shift+F { fullscreen-window; }
   Mod+C       { center-column; }
 
