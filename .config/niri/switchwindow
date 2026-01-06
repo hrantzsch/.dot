@@ -1,5 +1,5 @@
 #!/bin/bash
-windows=$(niri msg --json windows | jq -r '.. | objects | "\(.id)) \(.app_id): \(.title)"' )
+windows=$(niri msg --json windows | jq -r '.[] | "\(.id)) \(.app_id): \(.title)"' )
 if [ -z "$windows" ]; then
     echo "No open windows found." >&2
     exit 1

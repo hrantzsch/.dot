@@ -66,7 +66,7 @@ layout {
     // regular6=#ebbcba  # cyan
     width 4
     active-color "#c4a7e7"
-    inactive-color "#9ccfd8"
+    inactive-color "#ebbcba"
   }
 
 
@@ -91,9 +91,8 @@ environment {
 spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"
 
-spawn-at-startup "swaybg" "-c" "668888"
+spawn-at-startup "swaybg" "-c" "56949f"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'" "before-sleep" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'"
-spawn-at-startup "dex" "--autostart" "--environment" "niri" "--search-paths" "~/.config/autostart/"
 
 screenshot-path null
 
