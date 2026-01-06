@@ -24,6 +24,17 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#ebbcba,pointer:#ea9a97
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
+# slightly color man pages
+man() {
+    LESS_TERMCAP_md=$'\e[01;34m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[04;32m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    command man "$@"
+}
+# customize less
+export LESS="-iRMj4"
+
 # -- terminal escape sequences --
 set_term_title() {
   print -Pn "\e]0;$1\a"
