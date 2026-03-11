@@ -1,5 +1,5 @@
 local function toggle_lsp()
-  if next(vim.lsp.get_active_clients()) == nil then
+  if next(vim.lsp.get_clients()) == nil then
     vim.cmd "LspStart"
   else
     vim.cmd "LspStop"
@@ -31,7 +31,6 @@ end
 local normal_maps = {
   { "<leader>g",  group = "Git" },
   { "<leader>i",  group = "Copilot" },
-  { "<leader>t",  group = "Telescope" },
   { "<leader>v",  group = "Visual Multi" },
 
   { "<c-c>", '"+yy',                        desc = "Copy to system clipboard" },
@@ -51,14 +50,14 @@ local normal_maps = {
 
   { "<leader>l", group = "LSP" },
   { "<leader>f", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format" },
-  { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
+  { "<leader>lS", "<cmd>FzfLua lsp_workspace_symbols<cr>",            desc = "Workspace Symbols" },
   { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",           desc = "Code Action" },
-  { "<leader>ld", "<cmd>Telescope diagnostics<cr>",                   desc = "Diagnostics" },
+  { "<leader>ld", "<cmd>FzfLua diagnostics_workspace<cr>",            desc = "Diagnostics" },
   { "<leader>ll", "<cmd>lua vim.diagnostic.open_float()<cr>",         desc = "Line Diagnostics" },
-  { "<leader>lq", "<cmd>Telescope quickfix<cr>",                      desc = "Quickfix" },
+  { "<leader>lq", "<cmd>FzfLua quickfix<cr>",                         desc = "Quickfix" },
   { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                desc = "Rename" },
   { "<leader>lt", toggle_lsp,                                         desc = "Toggle LSP" },
-  { "<leader>lu", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
+  { "<leader>lu", "<cmd>FzfLua lsp_references<cr>",                   desc = "References" },
 
   { "<leader>p", toggle_prose_mode,               desc = "Toggle Prose Mode" },
 

@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 ---Parse date from git blame line and return the age in days
 ---
@@ -57,7 +57,7 @@ end
 function M.GitBlameHeat()
   local current_file = vim.api.nvim_buf_get_name(0)
   local current_line = vim.api.nvim_win_get_cursor(0)[1]
-  vim.api.nvim_command('vsplit new')
+  vim.api.nvim_command('vnew')
   vim.api.nvim_command('setlocal buftype=nofile nobuflisted')
   vim.api.nvim_command('r!git blame ' .. current_file)
   vim.api.nvim_command('1d')

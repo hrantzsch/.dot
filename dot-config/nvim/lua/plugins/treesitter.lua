@@ -6,7 +6,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    depenencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     -- TODO: map require("treesitter-context").go_to_context()
     opts = { max_lines = 4, mode = 'topline', },
   },
