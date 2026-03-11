@@ -30,11 +30,18 @@ setopt prompt_subst
 PROMPT='$(virtualenv_prompt_info)%(?.%B%F{green}➜ .%B%F{red}➜ )%f%b%F{cyan}%c%f ${vcs_info_msg_0_}'
 
 # -- Plugins --
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+for _zsh_as in /usr/share/{,zsh/plugins}/zsh-autosuggestions/zsh-autosuggestions.zsh; do
+  [[ -f "$_zsh_as" ]] && source "$_zsh_as" && break
+done
+unset _zsh_as
+for _fzf_dir in /usr/share/{fzf,doc/fzf/examples}; do
+  [[ -f "$_fzf_dir/key-bindings.zsh" ]] && source "$_fzf_dir/key-bindings.zsh"
+  [[ -f "$_fzf_dir/completion.zsh" ]] && source "$_fzf_dir/completion.zsh"
+done
+unset _fzf_dir
 
-export FZF_DEFAULT_COMMAND="fd --unrestricted --exclude .git --exclude bazel-"
+export _fd_cmd=${commands[fd]:-${commands[fdfind]}}
+export FZF_DEFAULT_COMMAND="$_fd_cmd --unrestricted --exclude .git --exclude bazel-"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # based on rose-pine/fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
@@ -44,6 +51,16 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
 
 # -- Terminal hooks --
+# slightly color man pages
+man() {
+    LESS_TERMCAP_md=$'\e[01;34m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[04;32m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    command man "$@"
+}
+export LESS="-iRMSj4"
+
 set_term_title() {
   print -Pn "\e]0;$1\a"
 }
@@ -64,15 +81,18 @@ alias ls='ls --color=tty'
 alias grep='grep --color=auto'
 alias diff='diff --color'
 
-# -- Aliases --
-alias zshrc="nvim $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
+umask 0027
+
+alias zshrc="$EDITOR $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshrc"
 
 alias o="xdg-open"
 alias v="nvim"
+alias zath="zathura"
+alias y="yazi"
 
 alias ssh="TERM=xterm-256color ssh"
 
-alias fd="fdfind --hidden --follow"
+alias fd="$_fd_cmd --hidden --follow"
 alias rg="rg -S -M200"
 
 alias d="dirs -v | head -n 10"
@@ -100,36 +120,8 @@ alias wlp="wl-copy -p"
 
 alias ox="openssl x509 -text -noout"
 
-# slightly color man pages
-man() {
-    LESS_TERMCAP_md=$'\e[01;34m' \
-    LESS_TERMCAP_me=$'\e[0m' \
-    LESS_TERMCAP_us=$'\e[04;32m' \
-    LESS_TERMCAP_ue=$'\e[0m' \
-    command man "$@"
-}
-export LESS="-iRMj4"
-
 # -- Tool integrations --
 eval "$(zoxide init zsh)"
-
-_direnv_hook() {
-  trap -- '' SIGINT;
-  eval "$("/usr/bin/direnv" export zsh)";
-  trap - SIGINT;
-}
-typeset -ag precmd_functions;
-if [[ -z "${precmd_functions[(r)_direnv_hook]+1}" ]]; then
-  precmd_functions=( _direnv_hook ${precmd_functions[@]} )
-fi
-typeset -ag chpwd_functions;
-if [[ -z "${chpwd_functions[(r)_direnv_hook]+1}" ]]; then
-  chpwd_functions=( _direnv_hook ${chpwd_functions[@]} )
-fi
-
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || PATH="$PATH:$PYENV_ROOT/bin"
-eval "$(pyenv init -)"
 
 # -- Keybindings --
 bindkey -e  # emacs keymap (overrides EDITOR-based vi default)
