@@ -138,3 +138,6 @@ eval "$(zoxide init zsh)"
 # -- Keybindings --
 bindkey -e  # emacs keymap (overrides EDITOR-based vi default)
 bindkey '^ ' autosuggest-accept
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
