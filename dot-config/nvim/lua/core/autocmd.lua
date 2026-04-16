@@ -18,8 +18,3 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_echo({ { "Editing password without leaky options", "None" } }, false, {})
   end,
 })
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.py" },
-  callback = function() vim.lsp.buf.format() end,
-})

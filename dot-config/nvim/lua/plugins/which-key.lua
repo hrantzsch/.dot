@@ -1,8 +1,11 @@
 local function toggle_lsp()
-  if next(vim.lsp.get_clients()) == nil then
-    vim.cmd "LspStart"
+  local clients = vim.lsp.get_clients()
+  if #clients > 0 then
+    vim.lsp.stop_client(clients)
+    print("LSP stopped")
   else
-    vim.cmd "LspStop"
+    vim.cmd("edit") -- reload buffer to trigger LSP attach
+    print("LSP started")
   end
 end
 
