@@ -30,6 +30,7 @@ setopt prompt_subst
 PROMPT='$(virtualenv_prompt_info)%(?.%B%F{green}➜ .%B%F{red}➜ )%f%b%F{cyan}%c%f ${vcs_info_msg_0_}'
 
 # -- Plugins --
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#9893a5"
 for _zsh_as in /usr/share/{,zsh/plugins}/zsh-autosuggestions/zsh-autosuggestions.zsh; do
   [[ -f "$_zsh_as" ]] && source "$_zsh_as" && break
 done
@@ -43,12 +44,8 @@ unset _fzf_dir
 export _fd_cmd=${commands[fd]:-${commands[fdfind]}}
 export FZF_DEFAULT_COMMAND="$_fd_cmd --unrestricted --exclude .git --exclude bazel-"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# based on rose-pine/fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
- --color=fg:#e0def4,bg:#191724,hl:#ea9a97
- --color=fg+:#ebbcba,bg+:#26233a,hl+:#ea9a97
- --color=info:#9ccfd8,prompt:#ebbcba,pointer:#ea9a97
- --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97"
+source "$ZDOTDIR/fzf-rose-pine-dawn.sh"
+
 
 # -- Terminal hooks --
 # slightly color man pages
