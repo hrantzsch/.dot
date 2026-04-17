@@ -32,7 +32,7 @@ output "HDMI-A-1" {
 }
 
 switch-events {
-  lid-close { spawn "sh" "-c" "swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine"; }
+  lid-close { spawn "sh" "-c" "swaylock -efF"; }
 }
 
 cursor {
@@ -64,9 +64,10 @@ layout {
     // regular4=#9ccfd8  # blue
     // regular5=#c4a7e7  # magenta
     // regular6=#ebbcba  # cyan
-    width 4
-    active-color "#c4a7e7"
-    inactive-color "#ebbcba"
+    width 6
+    active-gradient from="#ebbcba" to="#c4a7e7" angle=120
+    inactive-color "#faf4ed"
+    urgent-color "#eb6f92"
   }
 
 
@@ -75,10 +76,10 @@ layout {
   }
 
   struts {
-    left 16
-    right 16
-    top 4
-    bottom 4
+    left 24
+    right 24
+    top 8
+    bottom 8
   }
 }
 
@@ -91,13 +92,13 @@ environment {
 spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"
 
-spawn-at-startup "swaybg" "-c" "56949f"
-spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'" "before-sleep" "'swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine'"
+spawn-at-startup "swaybg" "-c" "#faf4ed"
+spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -efF'" "before-sleep" "'swaylock -efF'"
 
 screenshot-path null
 
 animations {
-  slowdown 0.5
+  slowdown 0.3
 }
 
 prefer-no-csd
@@ -132,6 +133,7 @@ binds {
   Mod+Space         repeat=false { spawn "fuzzel"; }
   Mod+W             repeat=false { spawn "~/.config/niri/switchwindow"; }
   Mod+0             repeat=false { spawn "~/.config/niri/powermenu"; }
+  Mod+U             repeat=false { spawn "fuzzel-emoji"; }
   Ctrl+Alt+L        repeat=false { spawn "sh" "-c" "swaylock -eFfC $HOME/.dot/.config/sway/swaylock-rose-pine"; }
 
   Mod+V       repeat=false { spawn "footclient" "-e" "vimclip"; }
@@ -155,6 +157,7 @@ binds {
   Mod+J         { focus-window-or-workspace-down; }
   Mod+K         { focus-window-or-workspace-up; }
   Mod+L         { focus-column-right; }
+  Mod+Semicolon { center-column; }
 
   Mod+Shift+H   { move-column-left; }
   Mod+Shift+J   { move-window-down-or-to-workspace-down; }
@@ -230,7 +233,6 @@ binds {
   Mod+D       { set-column-width "66%"; }
   Mod+F       { maximize-column; }
   Mod+Shift+F { fullscreen-window; }
-  Mod+C       { center-column; }
 
   // Mod+Y { set-column-width "-10%"; }
   // Mod+O { set-column-width "+10%"; }

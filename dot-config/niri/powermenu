@@ -8,7 +8,7 @@ choice=$(echo \
  Shutdown' | fuzzel --dmenu --no-sort --lines=5)
 
 case "$choice" in
-  " Lock") swaylock -f -c 338066 ;;
+  " Lock") swaylock -efF ;;
   " Logout") niri msg action quit ;;
   "⏾ Suspend") systemctl suspend ;;
   " Reboot") systemctl reboot ;;
