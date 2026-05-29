@@ -14,7 +14,7 @@ vim.o.wrap = false
 vim.o.mouse = "a"
 
 vim.o.termguicolors = true  -- enable rgb colors
-vim.o.background = [[dark]]
+vim.o.background = [[light]]
 vim.o.winborder = [[single]]
 
 vim.o.cursorline = true

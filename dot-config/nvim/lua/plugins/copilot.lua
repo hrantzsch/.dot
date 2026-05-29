@@ -1,7 +1,10 @@
 return {
   {
     "zbirenbaum/copilot.lua",
-    event = "VeryLazy",
+    cmd = "Copilot",
+    keys = {
+      { "<c-.>", mode = "i" },
+    },
     config = function()
       require("copilot").setup({
         suggestion = {
@@ -29,7 +32,6 @@ return {
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    event = "VeryLazy",
     branch = "main",
     build = "make tiktoken",
     dependencies = {
