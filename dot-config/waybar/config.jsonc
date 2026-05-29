@@ -4,7 +4,7 @@
     "height": 24,
     "modules-left": ["niri/workspaces", "wlr/taskbar"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/timetracking", "pulseaudio", "backlight", "tray", "battery", "group/group-power"],
+    "modules-right": ["custom/timetracking", "disk", "memory", "pulseaudio", "backlight", "tray", "battery", "group/group-power"],
 
     "niri/workspaces": {
       "format": "⏺"
@@ -18,13 +18,21 @@
       "on-click-middle": "close"
     },
 
+    "disk": {
+      "format": "  {percentage_used}%",
+      "tooltip-format": "{used} used out of {total} on {path} ({percentage_free}% free)"
+    },
+    "memory": {
+      "format": "󰍛  {percentage}%",
+    },
+
     "pulseaudio": {
-        "format": "{volume}% {icon}",
+        "format": "{icon} {volume}%",
         "format-muted": "󰝟",
         "format-icons": ["", "", ""]
     },
     "battery": {
-      "format": "{capacity}% {icon}",
+      "format": "{icon} {capacity}%",
       "format-icons": ["", "", "", "", ""]
     },
 
@@ -36,17 +44,17 @@
         "mode-mon-col"  : 3,
         "weeks-pos"     : "left",
         "format": {
-          "months":     "<span color='#9ccfd8'><b>{}</b></span>",
-          "days":       "<span color='#e0def4'>{}</span>",
-          "weeks":      "<span color='#c4a7e7'><b>{:%V}</b></span>",
-          "weekdays":   "<span color='#31748f'>{}</span>",
-          "today":      "<span color='#eb6f92'><b><u>{}</u></b></span>"
+          "months":     "<span color='#56949f'><b>{}</b></span>",
+          "days":       "<span color='#575279'>{}</span>",
+          "weeks":      "<span color='#907aa9'><b>{:%V}</b></span>",
+          "weekdays":   "<span color='#286983'>{}</span>",
+          "today":      "<span color='#b4637a'><b><u>{}</u></b></span>"
           }
         }
     },
     "backlight": {
       "device": "intel_backlight",
-      "format": "{percent}% {icon}",
+      "format": "{icon} {percent}%",
       "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "tray": {
