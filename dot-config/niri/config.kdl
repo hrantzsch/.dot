@@ -41,6 +41,7 @@ cursor {
 }
 
 layout {
+  background-color "#faf4ed"
   gaps 8
 
   center-focused-column "never"
@@ -83,6 +84,11 @@ layout {
   }
 }
 
+overview {
+  backdrop-color "#ebbcba"
+  zoom 0.3
+}
+
 environment {
   DISPLAY ":0"
   ELECTRON_OZONE_PLATFORM_HINT "wayland"
@@ -92,7 +98,6 @@ environment {
 spawn-at-startup "systemctl" "--user" "import-environment" "DISPLAY" "WAYLAND_DISPLAY"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY"
 
-spawn-at-startup "swaybg" "-c" "#faf4ed"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "'swaylock -efF'" "before-sleep" "'swaylock -efF'"
 
 screenshot-path null
