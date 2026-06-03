@@ -54,4 +54,4 @@ vim.o.undofile = true
 vim.o.spelllang = "en_us,de"
 
 vim.g.mapleader = vim.keycode("<space>")
-vim.g.maplocalleader = vim.keycode("<cr>")
+vim.g.maplocalleader = vim.keycode(",")
