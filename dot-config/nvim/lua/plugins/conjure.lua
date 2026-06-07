@@ -1,10 +1,11 @@
 return {
   {
     "Olical/conjure",
+    version = "*",
     ft = { "clojure", "fennel", "lua", "python" },
     lazy = true,
     config = function()
-      vim.g["conjure#mapping#doc_word"] = false
+      vim.g["conjure#mapping#doc_word"] = "<LocalLeader>k"
     end
   }
 }
