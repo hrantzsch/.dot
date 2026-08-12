@@ -2,6 +2,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
+    version = "*",
     keys = {
       { "<c-.>", mode = "i" },
     },

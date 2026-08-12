@@ -20,7 +20,6 @@ vim.o.winborder = [[single]]
 vim.o.cursorline = true
 
 vim.o.number = true         -- enable line number
-vim.o.relativenumber = true -- and relative line number
 
 vim.o.signcolumn = "yes"    -- always show sign column
 

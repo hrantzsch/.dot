@@ -82,11 +82,13 @@ local visual_maps = {
 return {
   "folke/which-key.nvim",
   dependencies = {'echasnovski/mini.icons', 'nvim-tree/nvim-web-devicons'},
-  event = "VeryLazy",
-  config = function()
+  lazy = false,
+  opts = {},
+  config = function(_, opts)
     vim.o.timeout = true
     vim.o.timeoutlen = 300
 
+    require("which-key").setup(opts)
     require("which-key").add(normal_maps)
     require("which-key").add(visual_maps)
   end,

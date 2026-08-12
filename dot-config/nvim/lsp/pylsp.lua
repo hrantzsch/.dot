@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
   cmd = { "pylsp" },
-  root_markers = { ".git" },
+  root_markers = { ".git", "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt" },
   filetypes = { "python" },
   settings = {
     pylsp = {
