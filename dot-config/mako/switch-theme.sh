@@ -30,5 +30,6 @@ sed -i "s/^background-color=.*/background-color=$BACKGROUND_COLOR/g" "$CONFIG"
 sed -i "s/^text-color=.*/text-color=$TEXT_COLOR/g" "$CONFIG"
 sed -i "s/^border-color=.*/border-color=$BORDER_COLOR/g" "$CONFIG"
 
-makoctl reload
-notify-send "Mako theme switched"
+# Best-effort: mako may not be running (e.g. theme switched from a TTY)
+makoctl reload 2>/dev/null || exit 0
+notify-send "Mako theme switched" 2>/dev/null || true

@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CFG="$(dirname "$(dirname "$(realpath "${BASH_SOURCE[0]}")")")/dot-config"
+
+# Determine target theme
+THEME=${1:-}
+if [[ -z "$THEME" ]]; then
+    current=$(sed -n 's/^initial-color-theme=//p' "$CFG/foot/foot.ini")
+    THEME=$([[ "$current" == "light" ]] && echo moon || echo dawn)
+fi
+
+case "$THEME" in
+    dawn|moon) ;;
+    *) echo "Usage: switch-theme [dawn|moon]" >&2; exit 1 ;;
+esac
+
+NVB=$([[ "$THEME" == dawn ]] && echo light || echo dark)
+BGCOLOR=$([[ "$THEME" == dawn ]] && echo faf4ed || echo 232136)
+
+echo "Switching to $THEME..."
+
+# foot: initial theme for new standalone instances; running ones are signalled below
+sed -i "s/^initial-color-theme=.*/initial-color-theme=${NVB}/" "$CFG/foot/foot.ini"
+
+# fuzzel
+sed -i "s|include=.*rose-pine.*|include=~/.config/fuzzel/rose-pine-${THEME}|" "$CFG/fuzzel/fuzzel.ini"
+
+# fzf
+sed -i "s|source \"\$ZDOTDIR/fzf-rose-pine.*\.sh\"|source \"\$ZDOTDIR/fzf-rose-pine-${THEME}.sh\"|" "$CFG/zsh/.zshrc"
+
+# mako
+"$CFG/mako/switch-theme.sh" "$THEME"
+
+# niri background
+sed -i "s/^\(  background-color \)\"#[^\"]*\"/\1\"#${BGCOLOR}\"/" "$CFG/niri/config.kdl"
+
+# waybar CSS import
+sed -i "s|@import \"./rose-pine-.*\.css\";|@import \"./rose-pine-${THEME}.css\";|" "$CFG/waybar/style.css"
+
+# waybar calendar colors (moon ↔ dawn)
+if [[ "$THEME" == dawn ]]; then
+    sed -i \
+        -e "s/'#9ccfd8'/'#56949f'/g" \
+        -e "s/'#e0def4'/'#575279'/g" \
+        -e "s/'#c4a7e7'/'#907aa9'/g" \
+        -e "s/'#31748f'/'#286983'/g" \
+        -e "s/'#eb6f92'/'#b4637a'/g" \
+        "$CFG/waybar/config.jsonc"
+else
+    sed -i \
+        -e "s/'#56949f'/'#9ccfd8'/g" \
+        -e "s/'#575279'/'#e0def4'/g" \
+        -e "s/'#907aa9'/'#c4a7e7'/g" \
+        -e "s/'#286983'/'#31748f'/g" \
+        -e "s/'#b4637a'/'#eb6f92'/g" \
+        "$CFG/waybar/config.jsonc"
+fi
+
+# variant-file apps
+ln -sfn "zathurarc-${THEME}" "$CFG/zathura/zathurarc"
+ln -sfn "swaylock-rose-pine-${THEME}" "$CFG/swaylock/config"
+
+# Reload running processes
+pkill -SIGUSR2 waybar 2>/dev/null || true
+# SIGUSR1 selects [colors-dark], SIGUSR2 [colors-light]; a foot server passes it on to its clients
+pkill "-$([[ "$NVB" == dark ]] && echo USR1 || echo USR2)" -x foot 2>/dev/null || true
+
+echo "Done."
